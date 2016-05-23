@@ -1,0 +1,124 @@
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+    		<div class="x_title">
+      			<h2>Divisão <small>Cadastro</small></h2>
+		    	
+		    	<div class="clearfix"></div>
+
+    		</div>
+    			
+			<div class="x_content">
+
+  				<form class="form-horizontal form-label-left" >
+
+			        <div class="item form-group" ng-class="{bad: nome_error}">
+				        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nome <span class="required">*</span>
+				        </label>
+			        	<div class="col-md-4 col-sm-4 col-xs-12">
+			            	<input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o nome da divisão" type="text" ng-model="divisao.nome">
+			        	</div>
+			        	<div class="alert">"{{ nome_error }}" </div>
+			        </div>
+
+			        <div class="item form-group" ng-class="{bad: sigla_error}">
+				        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Sigla <span class="required">*</span>
+				        </label>
+			        	<div class="col-md-4 col-sm-4 col-xs-12">
+			            	<input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe a sigla da divisão" type="text" ng-model="divisao.sigla">
+			        	</div>
+			        	<div class="alert">"{{ sigla_error }}" </div>
+			        </div>
+
+              <div class="item form-group" ng-class="{bad: unidade_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Unidade <span class="required">*</span>
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <select id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe a Unidade de trabalho" type="text" ng-model="divisao.unidade">
+                      <option ng-repeat="unidade in unidades" value="{{ unidade.id }}">{{ unidade.nome }}</option>
+                    </select>
+                </div>
+                <div class="alert">"{{ unidade_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: descricao_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Descrição
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe uma descrição" type="text" ng-model="divisao.descricao">
+                </div>
+                <div class="alert">"{{ descricao_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: observacao_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Observação
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe alguma observação" type="text" ng-model="divisao.observacao">
+                </div>
+                <div class="alert">"{{ observacao_error }}" </div>
+              </div>
+
+              <div class="ln_solid"></div>
+
+              <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                  <a onclick="window.history.back();" class="btn btn-primary">Voltar</a>
+                  <a ng-click="excluirDivisoesDetail(divisao);" class="btn btn-warning" ng-if="divisao && divisao.id">Excluir</a>
+                  <a id="send" ng-click="salvarDivisoesDetail(divisao);" class="btn btn-success">Salvar</a>
+                </div>
+              </div>
+
+			    </form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+  // initialize the validator function
+    validator.message['date'] = 'not a real date';
+
+    // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+    $('form')
+      .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+      .on('change', 'select.required', validator.checkField)
+      .on('keypress', 'input[required][pattern]', validator.keypress);
+
+    $('.multi.required')
+      .on('keyup blur', 'input', function() {
+        validator.checkField.apply($(this).siblings().last()[0]);
+      });
+
+    // bind the validation to the form submit event
+    //$('#send').click('submit');//.prop('disabled', true);
+
+    $('form').submit(function(e) {
+      e.preventDefault();
+      var submit = true;
+      // evaluate the form using generic validaing
+      if (!validator.checkAll($(this))) {
+        submit = false;
+      }
+
+      if (submit)
+        this.submit();
+      return false;
+    });
+
+    /* FOR DEMO ONLY */
+    $('#vfields').change(function() {
+      $('form').toggleClass('mode2');
+    }).prop('checked', false);
+
+    $('#alerts').change(function() {
+      validator.defaults.alerts = (this.checked) ? false : true;
+      if (this.checked)
+        $('form .alert').remove();
+    }).prop('checked', false);
+
+</script>

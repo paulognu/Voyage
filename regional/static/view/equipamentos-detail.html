@@ -1,0 +1,349 @@
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+    		<div class="x_title">
+      			<h2>Equipamento <small>Cadastro</small></h2>
+		    	
+		    	<div class="clearfix"></div>
+
+    		</div>
+    			
+			<div class="x_content">
+  				<form class="form-horizontal form-label-left" >
+
+              <div class="item form-group" ng-class="{bad: codigo_operacional_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Código Operacional <span class="required">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o Código Operacional do Equipamento" type="text" ng-model="equipamento.codigo_operacional">
+                </div>
+                <div class="alert">"{{ codigo_operacional_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: descricao_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Descrição <span class="required">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Descrição" type="text" ng-model="equipamento.descricao">
+                </div>
+                <div class="alert">"{{ descricao_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: observacao_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Observação <span class="required">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Observação" type="text" ng-model="equipamento.observacao">
+                </div>
+                <div class="alert">"{{ observacao_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: instalacao_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Instalação
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <select id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o tipo da Equipamento" type="text" ng-model="equipamento.instalacao">
+                      <option ng-repeat="instalacao in instalacoes" value="{{ instalacao.id }}">{{ instalacao.nome }}</option>
+                    </select>
+                </div>
+                <div class="alert">"{{ instalacao_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: tipo_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tipo
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <select id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o tipo da Equipamento" type="text" ng-model="equipamento.tipo">
+                      <option ng-repeat="tipo in tipos" value="{{ tipo.id }}">{{ tipo.nome }}</option>
+                    </select>
+                </div>
+                <div class="alert">"{{ tipo_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: em_manutencao_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                </label>
+
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" ng-model="equipamento.em_manutencao"> Em manutenção
+                    </label>
+                  </div>
+                </div>
+
+                <div class="alert">{{ em_manutencao_error }} </div>
+              </div>
+
+              <div class="nav nav-tabs">
+                <li ng-class="{'active': activeTab == 0}"><a href="" ng-click="setActiveTab(0)">Potência</a></li>
+                <li ng-class="{'active': activeTab == 1}"><a href="" ng-click="setActiveTab(1)">Corrente</a></li>
+                <li ng-class="{'active': activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Estado</a></li>
+              </div>
+
+              <div class="tab-content">
+
+                <div class="tab-pane" ng-class="{'active': activeTab == 0}">
+                  <!-- Potência Ativa-->
+
+                  <h2>Potência Ativa</h2>
+                    
+
+                  <div class="item form-group" ng-class="{bad: potencia_ativa.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="potencia_ativa_aquisicao_automatica" ng-model="equipamento.potencia_ativa.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ potencia_ativa.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: potencia_ativa.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.potencia_ativa.referencia">
+                    </div>
+                    <div class="alert">{{ potencia_ativa.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: potencia_ativa.fator_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Fator
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Fator de multiplicação" type="text" value='1.0' ng-model="equipamento.potencia_ativa.fator">
+                    </div>
+                    <div class="alert">"{{ potencia_ativa.fator_error }}" </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: potencia_ativa.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.potencia_ativa.valor_manual">
+                    </div>
+                    <div class="alert">"{{ potencia_ativa.valor_manual_error }}" </div>
+                  </div>
+
+                  <!-- Potência Reativa -->
+
+                  <h2>Potência Retiva</h2>
+
+                  <div class="item form-group" ng-class="{bad: potencia_reativa.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="potencia_reativa_aquisicao_automatica" ng-model="equipamento.potencia_reativa.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ potencia_reativa.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: potencia_reativa.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.potencia_reativa.referencia">
+                    </div>
+                    <div class="alert">{{ potencia_reativa.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: potencia_reativa.fator_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Fator
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Fator de multiplicação" type="text" value='1.0' ng-model="equipamento.potencia_reativa.fator">
+                    </div>
+                    <div class="alert">"{{ potencia_reativa.fator_error }}" </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: potencia_reativa.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.potencia_reativa.valor_manual">
+                    </div>
+                    <div class="alert">"{{ potencia_reativa.valor_manual_error }}" </div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane" ng-class="{'active': activeTab == 1}">
+
+                  <!-- Corrente A -->
+
+                  <h2>Corrente A</h2>
+
+                  <div class="item form-group" ng-class="{bad: corrente_fase_a.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="corrente_fase_a_aquisicao_automatica" ng-model="equipamento.corrente_fase_a.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ corrente_fase_a.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: corrente_fase_a.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.corrente_fase_a.referencia">
+                    </div>
+                    <div class="alert">{{ corrente_fase_a.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: corrente_fase_a.fator_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Fator
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Fator de multiplicação" type="text" value='1.0' ng-model="equipamento.corrente_fase_a.fator">
+                    </div>
+                    <div class="alert">"{{ corrente_fase_a.fator_error }}" </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: corrente_fase_a.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.corrente_fase_a.valor_manual">
+                    </div>
+                    <div class="alert">"{{ corrente_fase_a.valor_manual_error }}" </div>
+                  </div>
+
+
+                  <!-- Corrente B -->
+
+                  <h2>Corrente B</h2>
+
+                  <div class="item form-group" ng-class="{bad: corrente_fase_b.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="corrente_fase_b_aquisicao_automatica" ng-model="equipamento.corrente_fase_b.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ corrente_fase_b.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: corrente_fase_b.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.corrente_fase_b.referencia">
+                    </div>
+                    <div class="alert">{{ corrente_fase_b.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: corrente_fase_b.fator_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Fator
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Fator de multiplicação" type="text" value='1.0' ng-model="equipamento.corrente_fase_b.fator">
+                    </div>
+                    <div class="alert">"{{ corrente_fase_b.fator_error }}" </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: corrente_fase_b.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.corrente_fase_b.valor_manual">
+                    </div>
+                    <div class="alert">"{{ corrente_fase_b.valor_manual_error }}" </div>
+                  </div>
+
+                  <!-- Corrente V -->
+
+                  <h2>Corrente V</h2>
+
+
+                  <div class="item form-group" ng-class="{bad: corrente_fase_v.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="corrente_fase_v_aquisicao_automatica" ng-model="equipamento.corrente_fase_v.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ corrente_fase_v.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: corrente_fase_v.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.corrente_fase_v.referencia">
+                    </div>
+                    <div class="alert">{{ corrente_fase_v.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: corrente_fase_v.fator_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Fator
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Fator de multiplicação" type="text" value='1.0' ng-model="equipamento.corrente_fase_v.fator">
+                    </div>
+                    <div class="alert">"{{ corrente_fase_v.fator_error }}" </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: corrente_fase_v.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.corrente_fase_v.valor_manual">
+                    </div>
+                    <div class="alert">"{{ corrente_fase_v.valor_manual_error }}" </div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane" ng-class="{'active': activeTab == 2}">
+                  <!-- Potência Ativa-->
+
+                  <h2>Posição</h2>                    
+
+                  <div class="item form-group" ng-class="{bad: posicao.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="posicao_aquisicao_automatica" ng-model="equipamento.posicao.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ posicao.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: posicao.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.posicao.referencia">
+                    </div>
+                    <div class="alert">{{ posicao.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: posicao.inversao_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inversão 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="posicao_inversao" ng-model="equipamento.estado.posicao_inversao" checked>
+                    </div>
+                    <div class="alert">{{ posicao.inversao_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: posicao.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.posicao.valor_manual">
+                    </div>
+                    <div class="alert">"{{ posicao.valor_manual_error }}" </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="ln_solid"></div>
+
+              <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                  <a onclick="window.history.back();" class="btn btn-primary">Voltar</a>
+                  <a ng-click="excluirEquipamentosDetail(equipamento);" class="btn btn-warning" ng-if="equipamento && equipamento.id">Excluir</a>
+                  <a id="send" ng-click="salvarEquipamentosDetail(equipamento);" class="btn btn-success">Salvar</a>
+                </div>
+              </div>
+
+			    </form>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+</script>
