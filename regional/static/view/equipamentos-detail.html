@@ -79,9 +79,12 @@
 
               <div class="nav nav-tabs">
                 <li ng-class="{'active': activeTab == 0}"><a href="" ng-click="setActiveTab(0)">Potência</a></li>
-                <li ng-class="{'active': activeTab == 1}"><a href="" ng-click="setActiveTab(1)">Corrente
-                </a></li>
+                <li ng-class="{'active': activeTab == 1}"><a href="" ng-click="setActiveTab(1)">Corrente</a></li>
                 <li ng-class="{'active': activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Estado</a></li>
+                <li ng-class="{'active': activeTab == 3}"><a href="" ng-click="setActiveTab(3)">ERAC - Esquema Reginal de Alívio de Carga</a></li>
+                <li ng-class="{'active': activeTab == 4}"><a href="" ng-click="setActiveTab(4)">SEP de Sobrecarga de Linha</a></li>
+                <li ng-class="{'active': activeTab == 5}"><a href="" ng-click="setActiveTab(5)">SEP de Sobrecarga de Transformador</a></li>
+                <li ng-class="{'active': activeTab == 6}"><a href="" ng-click="setActiveTab(6)">Grupo do PCMC</a></li>
               </div>
 
               <div class="tab-content">
@@ -359,6 +362,296 @@
                     <div class="alert">"{{ posicao.valor_manual_error }}" </div>
                   </div>
 
+                </div>
+
+                <div class="tab-pane" ng-class="{'active': activeTab == 3}">
+                  <!-- 1o Estágio -->
+
+                  <h2>1o Estágio</h2>                    
+
+                  <div class="item form-group" ng-class="{bad: erac1oEst.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="erac1oEst_aquisicao_automatica" ng-model="equipamento.erac1oEst.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ erac1oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: erac1oEst.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="erac1oEst_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.erac1oEst.referencia">
+                    </div>
+                    <div class="alert">{{ erac1oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: erac1oEst.inversao_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inversão 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="erac1oEst_inversao" ng-model="equipamento.estado.erac1oEst_inversao" checked>
+                    </div>
+                    <div class="alert">{{ erac1oEst.inversao_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: erac1oEst.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.erac1oEst.valor_manual">
+                    </div>
+                    <div class="alert">"{{ erac1oEst.valor_manual_error }}" </div>
+                  </div>
+
+                  <!-- 2o Estágio -->
+
+                  <h2>2o Estágio</h2>                    
+
+                  <div class="item form-group" ng-class="{bad: erac2oEst.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="erac2oEst_aquisicao_automatica" ng-model="equipamento.erac2oEst.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ erac2oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: erac2oEst.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="erac2oEst_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.erac2oEst.referencia">
+                    </div>
+                    <div class="alert">{{ erac2oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: erac2oEst.inversao_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inversão 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="erac2oEst_inversao" ng-model="equipamento.estado.erac2oEst_inversao" checked>
+                    </div>
+                    <div class="alert">{{ erac2oEst.inversao_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: erac2oEst.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.erac2oEst.valor_manual">
+                    </div>
+                    <div class="alert">"{{ erac2oEst.valor_manual_error }}" </div>
+                  </div>
+                </div>
+
+                <div class="tab-pane" ng-class="{'active': activeTab == 4}">
+                  <!-- 1o Estágio -->
+
+                  <h2>1o Estágio</h2>                    
+
+                  <div class="item form-group" ng-class="{bad: sl1oEst.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="sl1oEst_aquisicao_automatica" ng-model="equipamento.sl1oEst.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ sl1oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: sl1oEst.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="sl1oEst_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.sl1oEst.referencia">
+                    </div>
+                    <div class="alert">{{ sl1oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: sl1oEst.inversao_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inversão 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="sl1oEst_inversao" ng-model="equipamento.estado.sl1oEst_inversao" checked>
+                    </div>
+                    <div class="alert">{{ sl1oEst.inversao_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: sl1oEst.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.sl1oEst.valor_manual">
+                    </div>
+                    <div class="alert">"{{ sl1oEst.valor_manual_error }}" </div>
+                  </div>
+
+                  <!-- 2o Estágio -->
+
+                  <h2>2o Estágio</h2>                    
+
+                  <div class="item form-group" ng-class="{bad: sl2oEst.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="sl2oEst_aquisicao_automatica" ng-model="equipamento.sl2oEst.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ sl2oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: sl2oEst.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="sl2oEst_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.sl2oEst.referencia">
+                    </div>
+                    <div class="alert">{{ sl2oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: sl2oEst.inversao_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inversão 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="sl2oEst_inversao" ng-model="equipamento.estado.sl2oEst_inversao" checked>
+                    </div>
+                    <div class="alert">{{ sl2oEst.inversao_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: sl2oEst.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.sl2oEst.valor_manual">
+                    </div>
+                    <div class="alert">"{{ sl2oEst.valor_manual_error }}" </div>
+                  </div>
+
+                  <!-- 3o Estágio -->
+
+                  <h2>3o Estágio</h2>                    
+
+                  <div class="item form-group" ng-class="{bad: sl3oEst.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="sl3oEst_aquisicao_automatica" ng-model="equipamento.sl3oEst.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ sl3oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: sl3oEst.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="sl3oEst_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.sl3oEst.referencia">
+                    </div>
+                    <div class="alert">{{ sl3oEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: sl3oEst.inversao_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inversão 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="sl3oEst_inversao" ng-model="equipamento.estado.sl3oEst_inversao" checked>
+                    </div>
+                    <div class="alert">{{ sl3oEst.inversao_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: sl3oEst.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.sl3oEst.valor_manual">
+                    </div>
+                    <div class="alert">"{{ sl3oEst.valor_manual_error }}" </div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane" ng-class="{'active': activeTab == 5}">
+                  <!-- SEP de Sobrecarga de Transformador -->
+
+                  <h2>SEP de Sobrecarga de Transformador</h2>                    
+
+                  <div class="item form-group" ng-class="{bad: stEst.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="stEst_aquisicao_automatica" ng-model="equipamento.stEst.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ stEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: stEst.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="stEst_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.stEst.referencia">
+                    </div>
+                    <div class="alert">{{ stEst.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: stEst.inversao_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inversão 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="stEst_inversao" ng-model="equipamento.estado.stEst_inversao" checked>
+                    </div>
+                    <div class="alert">{{ stEst.inversao_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: stEst.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.stEst.valor_manual">
+                    </div>
+                    <div class="alert">"{{ stEst.valor_manual_error }}" </div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane" ng-class="{'active': activeTab == 6}">
+                <!-- Grupo do PCMC -->
+
+                  <h2>Grupo do PCMC</h2>                    
+
+                  <div class="item form-group" ng-class="{bad: grupo_pcmc.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="grupo_pcmc_aquisicao_automatica" ng-model="equipamento.grupo_pcmc.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ grupo_pcmc.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: grupo_pcmc.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="grupo_pcmc_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.grupo_pcmc.referencia">
+                    </div>
+                    <div class="alert">{{ grupo_pcmc.referencia_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: grupo_pcmc.inversao_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inversão 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="grupo_pcmc_inversao" ng-model="equipamento.estado.grupo_pcmc_inversao" checked>
+                    </div>
+                    <div class="alert">{{ grupo_pcmc.inversao_error }} </div>
+                  </div>
+
+                  <div class="item form-group" ng-class="{bad: grupo_pcmc.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.grupo_pcmc.valor_manual">
+                    </div>
+                    <div class="alert">"{{ grupo_pcmc.valor_manual_error }}" </div>
+                  </div>
                 </div>
 
               </div>

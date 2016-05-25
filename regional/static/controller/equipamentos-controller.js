@@ -7,9 +7,39 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		corrente_fase_a: {},
 		corrente_fase_b: {},
 		corrente_fase_v: {},
+		
 		posicao: {
 			referencia: []
 		},
+		
+		erac1oEst: {
+			referencia: []
+		},
+		
+		erac2oEst: {
+			referencia: []
+		},
+		
+		sl1oEst: {
+			referencia: []
+		},
+		
+		sl2oEst: {
+			referencia: []
+		},
+		
+		sl3oEst: {
+			referencia: []
+		},
+		
+		stEst: {
+			referencia: []
+		},
+		
+		grupo_pcmc: {
+			referencia: []
+		},
+		
 		instalacao: $routeParams.instalacao
 	};
 
@@ -272,9 +302,6 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 		consulta += params;
 
-		console.log(consulta);
-
-
 		$http.get(consulta)
 			.success(function (dados) {
 				$scope.equipamentos = dados.results;
@@ -298,30 +325,149 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 			.success(function (dados) {
 				$scope.equipamento = dados;
 
+
 				if(dados.posicao)  {
 					$("[name='posicao_ref']").tokenfield('setTokens', dados.posicao.referencia);
+				} else {					
+					dados.posicao.referencia = [];
+				}
+
+				if(dados.erac1oEst)  {
+					$("[name='erac1oEst_ref']").tokenfield('setTokens', dados.erac1oEst.referencia);
+				} else {
+					dados.erac1oEst = {
+						referencia: []
+					};
+				}
+
+				if(dados.erac2oEst)  {
+					$("[name='erac2oEst_ref']").tokenfield('setTokens', dados.erac2oEst.referencia);
+				} else {
+					dados.erac2oEst = {
+						referencia: []
+					};
+				}
+
+				if(dados.sl1oEst)  {
+					$("[name='sl1oEst_ref']").tokenfield('setTokens', dados.sl1oEst.referencia);
+				} else {
+					dados.sl1oEst = {
+						referencia: []
+					};
+				}
+
+				if(dados.sl2oEst)  {
+					$("[name='sl2oEst_ref']").tokenfield('setTokens', dados.sl2oEst.referencia);
+				} else {
+					dados.sl2oEst = {
+						referencia: []
+					};
+				}
+
+				if(dados.sl3oEst)  {
+					$("[name='sl3oEst_ref']").tokenfield('setTokens', dados.sl3oEst.referencia);
+				} else {
+					dados.sl3oEst = {
+						referencia: []
+					};
+				}
+
+				if(dados.stEst)  {
+					$("[name='stEst_ref']").tokenfield('setTokens', dados.stEst.referencia);
+				} else {
+					dados.stEst = {
+						referencia: []
+					};
+				}
+
+				if(dados.grupo_pcmc)  {
+					$("[name='grupo_pcmc_ref']").tokenfield('setTokens', dados.grupo_pcmc.referencia);
+				} else {
+					dados.grupo_pcmc = {
+						referencia: []
+					};
 				}
 				
 				if($scope.equipamento.potencia_ativa) {
 					$("[name='potencia_ativa_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.potencia_ativa.aquisicao_automatica);
+				} else {
+					dados.potencia_ativa = {
+						referencia: []
+					};
 				}
 
 				if($scope.equipamento.potencia_reativa) {
 					$("[name='potencia_reativa_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.potencia_reativa.aquisicao_automatica);
+				} else {
+					dados.potencia_reativa = {
+						referencia: []
+					};
+				}
+
+				if($scope.equipamento.corrente_fase_a) {
+					$("[name='corrente_fase_a_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.corrente_fase_a.aquisicao_automatica);
+				} else {
+					dados.corrente_fase_a = {
+						referencia: []
+					};
 				}
 
 				if($scope.equipamento.corrente_fase_b) {
 					$("[name='corrente_fase_b_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.corrente_fase_b.aquisicao_automatica);
+				} else {
+					dados.corrente_fase_b = {
+						referencia: []
+					};
 				}
 
 				if($scope.equipamento.corrente_fase_v) {
 					$("[name='corrente_fase_v_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.corrente_fase_v.aquisicao_automatica);
+				} else {
+					dados.corrente_fase_v = {
+						referencia: []
+					};
 				}
 
 				if($scope.equipamento.posicao) {
 					$("[name='posicao_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.posicao.aquisicao_automatica);
 					$("[name='posicao_inversao']").bootstrapSwitch('state', $scope.equipamento.posicao.inversao);
 				}
+
+				if($scope.equipamento.erac1oEst) {
+					$("[name='erac1oEst_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.erac1oEst.aquisicao_automatica);
+					$("[name='erac1oEst_inversao']").bootstrapSwitch('state', $scope.equipamento.erac1oEst.inversao);
+				}
+
+				if($scope.equipamento.erac2oEst) {
+					$("[name='erac2oEst_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.erac2oEst.aquisicao_automatica);
+					$("[name='erac2oEst_inversao']").bootstrapSwitch('state', $scope.equipamento.erac2oEst.inversao);
+				}
+
+				if($scope.equipamento.sl1oEst) {
+					$("[name='sl1oEst_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.sl1oEst.aquisicao_automatica);
+					$("[name='sl1oEst_inversao']").bootstrapSwitch('state', $scope.equipamento.sl1oEst.inversao);
+				}
+
+				if($scope.equipamento.sl2oEst) {
+					$("[name='sl2oEst_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.sl2oEst.aquisicao_automatica);
+					$("[name='sl2oEst_inversao']").bootstrapSwitch('state', $scope.equipamento.sl2oEst.inversao);
+				}
+
+				if($scope.equipamento.sl3oEst) {
+					$("[name='sl3oEst_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.sl3oEst.aquisicao_automatica);
+					$("[name='sl3oEst_inversao']").bootstrapSwitch('state', $scope.equipamento.sl3oEst.inversao);
+				}
+
+				if($scope.equipamento.stEst) {
+					$("[name='stEst_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.stEst.aquisicao_automatica);
+					$("[name='stEst_inversao']").bootstrapSwitch('state', $scope.equipamento.stEst.inversao);
+				}
+
+				if($scope.equipamento.grupo_pcmc) {
+					$("[name='grupo_pcmc_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.grupo_pcmc.aquisicao_automatica);
+					$("[name='grupo_pcmc_inversao']").bootstrapSwitch('state', $scope.equipamento.grupo_pcmc.inversao);
+				}
+
 			})
 			.error(function (dados) {
 
@@ -365,8 +511,6 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 		if (equipamento && equipamento.id) {
 			consulta = url + equipamento.id + "/";
-
-			console.log(equipamento.posicao.referencia);
 
 			$http.put(consulta, equipamento)
 				.success(function (dados) {
@@ -454,7 +598,7 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		$scope.carregarEquipamentosList();
 	}
 
-	var setMedidaAnalogica = function (name) {
+	var setMedidaAnalogica = function (name, obj) {
 		$("[name='" + name + "']").bootstrapSwitch({
 		    onText: 'Automatico', 
 		    offText: 'Manual',
@@ -463,27 +607,45 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 		    },
 		    onSwitchChange: function (event, state) {
-		    	$scope.equipamento.potencia_ativa.aquisicao_automatica = state;
+		    	obj.aquisicao_automatica = state;
+		    	console.log(obj);
 		    }
 		  });
 	};
 
-	$("[name='posicao_inversao']").bootstrapSwitch({
-	    onText: 'SIM', 
-	    offText: 'NÃO',
-	    size: 'small',
-	    state: false,
-	    onInit: function (event, state) {
+	var setPosicaoInverso = function (name, obj) {
+		$("[name='" + name + "']").bootstrapSwitch({
+		    onText: 'SIM', 
+		    offText: 'NÃO',
+		    size: 'small',
+		    state: false,
+		    onInit: function (event, state) {
 
-	    },
-	    onSwitchChange: function (event, state) {
-	    	if(!$scope.equipamento.posicao) {
-	    		$scope.equipamento.posicao = {};
-	    	}
-	    	$scope.equipamento.posicao.inversao = state;
-	    	console.log($scope.equipamento.posicao.inversao);
-	    }
-	  });
+		    },
+		    onSwitchChange: function (event, state) {
+		    	if(!$scope.equipamento.posicao) {
+		    		$scope.equipamento.posicao = {};
+		    	}
+		    	obj.inversao = state;
+		    }
+		  });
+	};
+
+	// $("[name='posicao_inversao']").bootstrapSwitch({
+	//     onText: 'SIM', 
+	//     offText: 'NÃO',
+	//     size: 'small',
+	//     state: false,
+	//     onInit: function (event, state) {
+
+	//     },
+	//     onSwitchChange: function (event, state) {
+	//     	if(!$scope.equipamento.posicao) {
+	//     		$scope.equipamento.posicao = {};
+	//     	}
+	//     	$scope.equipamento.posicao.inversao = state;
+	//     }
+	//   });
 
 
 	var setAutocompleteAnalogicaRef = function (name) {
@@ -537,21 +699,44 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		});
 	};
 
-	setMedidaAnalogica('potencia_ativa_aquisicao_automatica');
-	setMedidaAnalogica('potencia_reativa_aquisicao_automatica');
-	setMedidaAnalogica('fator_potencia_aquisicao_automatica');
-	setMedidaAnalogica('corrente_fase_a_aquisicao_automatica');
-	setMedidaAnalogica('corrente_fase_b_aquisicao_automatica');
-	setMedidaAnalogica('corrente_fase_v_aquisicao_automatica');
-	setMedidaAnalogica('posicao_aquisicao_automatica');
+	setMedidaAnalogica('potencia_ativa_aquisicao_automatica', $scope.equipamento.potencia_ativa);
+	setMedidaAnalogica('potencia_reativa_aquisicao_automatica', $scope.equipamento.potencia_reativa);
+	setMedidaAnalogica('fator_potencia_aquisicao_automatica', $scope.equipamento.fator_potencia);
+	setMedidaAnalogica('corrente_fase_a_aquisicao_automatica', $scope.equipamento.corrente_fase_a);
+	setMedidaAnalogica('corrente_fase_b_aquisicao_automatica', $scope.equipamento.corrente_fase_b);
+	setMedidaAnalogica('corrente_fase_v_aquisicao_automatica', $scope.equipamento.corrente_fase_v);
 	
-
 	setAutocompleteAnalogicaRef('potencia_ativa_ref');
 	setAutocompleteAnalogicaRef('potencia_reativa_ref');
 	setAutocompleteAnalogicaRef('fator_potencia_ref');
 	setAutocompleteAnalogicaRef('corrente_fase_a_ref');
 	setAutocompleteAnalogicaRef('corrente_fase_b_ref');
 	setAutocompleteAnalogicaRef('corrente_fase_v_ref');
+
+	setMedidaAnalogica('posicao_aquisicao_automatica', $scope.equipamento.posicao);
+	setPosicaoInverso('posicao_inversao', $scope.equipamento.posicao);
+
+	setMedidaAnalogica('erac1oEst_aquisicao_automatica', $scope.equipamento.erac1oEst);
+	setPosicaoInverso('erac1oEst_inversao', $scope.equipamento.erac1oEst);
+
+	setMedidaAnalogica('erac2oEst_aquisicao_automatica', $scope.equipamento.erac2oEst);
+	setPosicaoInverso('erac2oEst_inversao', $scope.equipamento.erac2oEst);
+
+	setMedidaAnalogica('sl1oEst_aquisicao_automatica', $scope.equipamento.sl1oEst);
+	setPosicaoInverso('sl1oEst_inversao', $scope.equipamento.sl1oEst);
+
+	setMedidaAnalogica('sl2oEst_aquisicao_automatica', $scope.equipamento.sl2oEst);
+	setPosicaoInverso('sl2oEst_inversao', $scope.equipamento.sl2oEst);
+
+	setMedidaAnalogica('sl3oEst_aquisicao_automatica', $scope.equipamento.sl3oEst);
+	setPosicaoInverso('sl3oEst_inversao', $scope.equipamento.sl3oEst);
+
+	setMedidaAnalogica('stEst_aquisicao_automatica', $scope.equipamento.stEst);
+	setPosicaoInverso('stEst_inversao', $scope.equipamento.stEst);
+
+	setMedidaAnalogica('grupo_pcmc_aquisicao_automatica', $scope.equipamento.grupo_pcmc);
+	setPosicaoInverso('grupo_pcmc_inversao', $scope.equipamento.grupo_pcmc);
+
 
 	/*
 	 * Posição Abterto/Fechado
@@ -584,4 +769,227 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
       .on('tokenfield:createtoken', adicionarPosicaoRef)
       .on('tokenfield:removetoken', removerPosicaoRef);
 
+
+	/*
+	 * SEP de sobrecarga de Linha 1oEst
+	 */
+
+	var adicionarSl1oEstRef = function (e) {
+		var some_extern = $scope.equipamento.sl1oEst.referencia.some(function (item) {
+			return item === e.attrs.value;
+		});
+
+		var some_intern = $(this).val().split(',').some(function (item) {
+			return item.trim() === e.attrs.value.trim();
+		});
+
+		if(!some_extern) {
+			$scope.equipamento.sl1oEst.referencia.push(e.attrs.value);
+		}
+
+		return !(some_intern && some_extern);
+	};
+
+	var removerSl1oEstRef = function (e) {
+		$scope.equipamento.sl1oEst.referencia = $scope.equipamento.sl1oEst.referencia.filter(function (item) {
+			return e.attrs.value !== item;
+		});
+	};
+
+	setAutocompleteDigitalRef('sl1oEst_ref');
+	$("[name='sl1oEst_ref']")
+      .on('tokenfield:createtoken', adicionarSl1oEstRef)
+      .on('tokenfield:removetoken', removerSl1oEstRef);
+
+
+	/*
+	 * SEP de sobrecarga de Linha 2oEst
+	 */
+
+	var adicionarSl2oEstRef = function (e) {
+		var some_extern = $scope.equipamento.sl2oEst.referencia.some(function (item) {
+			return item === e.attrs.value;
+		});
+
+		var some_intern = $(this).val().split(',').some(function (item) {
+			return item.trim() === e.attrs.value.trim();
+		});
+
+		if(!some_extern) {
+			$scope.equipamento.sl2oEst.referencia.push(e.attrs.value);
+		}
+
+		return !(some_intern && some_extern);
+	};
+
+	var removerSl2oEstRef = function (e) {
+		$scope.equipamento.sl2oEst.referencia = $scope.equipamento.sl2oEst.referencia.filter(function (item) {
+			return e.attrs.value !== item;
+		});
+	};
+
+	setAutocompleteDigitalRef('sl2oEst_ref');
+	$("[name='sl2oEst_ref']")
+      .on('tokenfield:createtoken', adicionarSl2oEstRef)
+      .on('tokenfield:removetoken', removerSl2oEstRef);
+
+
+	/*
+	 * SEP de sobrecarga de Linha 3oEst
+	 */
+
+	var adicionarSl3oEstRef = function (e) {
+		var some_extern = $scope.equipamento.sl3oEst.referencia.some(function (item) {
+			return item === e.attrs.value;
+		});
+
+		var some_intern = $(this).val().split(',').some(function (item) {
+			return item.trim() === e.attrs.value.trim();
+		});
+
+		if(!some_extern) {
+			$scope.equipamento.sl3oEst.referencia.push(e.attrs.value);
+		}
+
+		return !(some_intern && some_extern);
+	};
+
+	var removerSl3oEstRef = function (e) {
+		$scope.equipamento.sl3oEst.referencia = $scope.equipamento.sl3oEst.referencia.filter(function (item) {
+			return e.attrs.value !== item;
+		});
+	};
+
+	setAutocompleteDigitalRef('sl3oEst_ref');
+	$("[name='sl3oEst_ref']")
+      .on('tokenfield:createtoken', adicionarSl3oEstRef)
+      .on('tokenfield:removetoken', removerSl3oEstRef);
+
+
+	/*
+	 * ERAC 1oEst
+	 */
+
+	var adicionarerac1oEstRef = function (e) {
+		var some_extern = $scope.equipamento.erac1oEst.referencia.some(function (item) {
+			return item === e.attrs.value;
+		});
+
+		var some_intern = $(this).val().split(',').some(function (item) {
+			return item.trim() === e.attrs.value.trim();
+		});
+
+		if(!some_extern) {
+			$scope.equipamento.erac1oEst.referencia.push(e.attrs.value);
+		}
+
+		return !(some_intern && some_extern);
+	};
+
+	var removererac1oEstRef = function (e) {
+		$scope.equipamento.erac1oEst.referencia = $scope.equipamento.erac1oEst.referencia.filter(function (item) {
+			return e.attrs.value !== item;
+		});
+	};
+
+	setAutocompleteDigitalRef('erac1oEst_ref');
+	$("[name='erac1oEst_ref']")
+      .on('tokenfield:createtoken', adicionarerac1oEstRef)
+      .on('tokenfield:removetoken', removererac1oEstRef);      
+
+
+	/*
+	 * ERAC 2oEst
+	 */
+
+	var adicionarerac2oEstRef = function (e) {
+		var some_extern = $scope.equipamento.erac2oEst.referencia.some(function (item) {
+			return item === e.attrs.value;
+		});
+
+		var some_intern = $(this).val().split(',').some(function (item) {
+			return item.trim() === e.attrs.value.trim();
+		});
+
+		if(!some_extern) {
+			$scope.equipamento.erac2oEst.referencia.push(e.attrs.value);
+		}
+
+		return !(some_intern && some_extern);
+	};
+
+	var removererac2oEstRef = function (e) {
+		$scope.equipamento.erac2oEst.referencia = $scope.equipamento.erac2oEst.referencia.filter(function (item) {
+			return e.attrs.value !== item;
+		});
+	};
+
+	setAutocompleteDigitalRef('erac2oEst_ref');
+	$("[name='erac2oEst_ref']")
+      .on('tokenfield:createtoken', adicionarerac2oEstRef)
+      .on('tokenfield:removetoken', removererac2oEstRef);      
+
+
+	/*
+	 * ST
+	 */
+
+	var adicionarstEstRef = function (e) {
+		var some_extern = $scope.equipamento.stEst.referencia.some(function (item) {
+			return item === e.attrs.value;
+		});
+
+		var some_intern = $(this).val().split(',').some(function (item) {
+			return item.trim() === e.attrs.value.trim();
+		});
+
+		if(!some_extern) {
+			$scope.equipamento.stEst.referencia.push(e.attrs.value);
+		}
+
+		return !(some_intern && some_extern);
+	};
+
+	var removerstEstRef = function (e) {
+		$scope.equipamento.stEst.referencia = $scope.equipamento.stEst.referencia.filter(function (item) {
+			return e.attrs.value !== item;
+		});
+	};
+
+	setAutocompleteDigitalRef('stEst_ref');
+	$("[name='stEst_ref']")
+      .on('tokenfield:createtoken', adicionarstEstRef)
+      .on('tokenfield:removetoken', removerstEstRef);      
+
+
+	/*
+	 * Grupo do PCMC
+	 */
+
+	var adicionargrupo_pcmcRef = function (e) {
+		var some_extern = $scope.equipamento.grupo_pcmc.referencia.some(function (item) {
+			return item === e.attrs.value;
+		});
+
+		var some_intern = $(this).val().split(',').some(function (item) {
+			return item.trim() === e.attrs.value.trim();
+		});
+
+		if(!some_extern) {
+			$scope.equipamento.grupo_pcmc.referencia.push(e.attrs.value);
+		}
+
+		return !(some_intern && some_extern);
+	};
+
+	var removergrupo_pcmcRef = function (e) {
+		$scope.equipamento.grupo_pcmc.referencia = $scope.equipamento.grupo_pcmc.referencia.filter(function (item) {
+			return e.attrs.value !== item;
+		});
+	};
+
+	setAutocompleteDigitalRef('grupo_pcmc_ref');
+	$("[name='grupo_pcmc_ref']")
+      .on('tokenfield:createtoken', adicionargrupo_pcmcRef)
+      .on('tokenfield:removetoken', removergrupo_pcmcRef);      
 });

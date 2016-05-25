@@ -88,6 +88,17 @@ class Equipamentos(Document):
     
     posicao = EmbeddedDocumentField(MedidaDigital, required=False)
     
+    erac1oEst = EmbeddedDocumentField(MedidaDigital, required=False)
+    erac2oEst = EmbeddedDocumentField(MedidaDigital, required=False)
+    
+    sl1oEst = EmbeddedDocumentField(MedidaDigital, required=False)
+    sl2oEst = EmbeddedDocumentField(MedidaDigital, required=False)
+    sl3oEst = EmbeddedDocumentField(MedidaDigital, required=False)
+
+    stEst = EmbeddedDocumentField(MedidaDigital, required=False)
+    
+    grupo_pcmc = EmbeddedDocumentField(MedidaDigital, required=False)
+    
     
 class Alimentadores(Document):
     codigo_operacional = StringField(unique=True, required=True)
