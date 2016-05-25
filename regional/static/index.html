@@ -135,6 +135,8 @@
                     </li>
                     <li><a href="#equipamentos-list">Equipamentos</a>
                     </li>
+                    <li><a href="#alimentadores-list">Alimentadores</a>
+                    </li>
                   </ul>
                 </li>
               </ul>
@@ -396,6 +398,14 @@
           templateUrl: "/static/view/equipamentos-detail.html",
           controller: "equipamentosCtrl"
         })
+        .when("/alimentadores-list", {
+          templateUrl: "/static/view/alimentadores-list.html",
+          controller: "alimentadoresCtrl"
+        })
+        .when("/alimentadores-detail/:id", {
+          templateUrl: "/static/view/alimentadores-detail.html",
+          controller: "alimentadoresCtrl"
+        })
     });
 
     angular.module("Voyage").controller("VoyageCtrl", function ($scope) {
@@ -416,6 +426,7 @@
   <script src="controller/equipes-controller.js"></script>
   <script src="controller/instalacoes-controller.js"></script>
   <script src="controller/equipamentos-controller.js"></script>
+  <script src="controller/alimentadores-controller.js"></script>
 
 </body>
 

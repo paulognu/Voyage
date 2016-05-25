@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 #-*- coding: utf-8 -*-
 from regional.models import Unidades, Divisoes, Colaboradores, Equipes,\
-    Instalacoes, Equipamentos, InstalacaoTipos, EquipamentoTipos
+    Instalacoes, Equipamentos, InstalacaoTipos, EquipamentoTipos, Alimentadores
 
 from rest_framework.fields import SerializerMethodField
 from rest_framework.reverse import reverse
 from rest_framework_mongoengine.serializers import DocumentSerializer
-from django.forms.models import fields_for_model
 
 
 class UnidadesSerializer(DocumentSerializer):
@@ -66,9 +65,9 @@ class ColaboradoresSerializer(DocumentSerializer):
         return _links      
 
     
-    def get_divisao_sigla(self, obj):
-        
+    def get_divisao_sigla(self, obj):        
         return obj.divisao.sigla if obj and obj.divisao else None
+    
 
 class ColaboradoresListSerializer(DocumentSerializer):
     value = SerializerMethodField()
@@ -109,12 +108,10 @@ class EquipesSerializer(DocumentSerializer):
                 
         return _links      
     
-    def get_divisao_sigla(self, obj):
-        
+    def get_divisao_sigla(self, obj):        
         return obj.divisao.sigla if obj and obj.divisao else None
     
     def get_membros_teste(self, obj):
-        
         return [{'value': str(membro.id), 'label': '{0} - {1}'.format(membro.matricula, membro.nome_completo)} for membro in obj.membros ] if obj and obj.membros else None
 
 
@@ -203,4 +200,33 @@ class EquipamentosSerializer(DocumentSerializer):
         return obj.instalacao.sigla if obj.instalacao else None
     
     def get_tipo_nome(self, obj):
-        return obj.tipo.nome if obj.tipo else None    
+        return obj.tipo.nome if obj.tipo else None
+    
+    
+class AlimentadoresSerializer(DocumentSerializer):
+    links = SerializerMethodField()
+    instalacao_nome = SerializerMethodField()
+    instalacao_sigla = SerializerMethodField()
+    disjuntor_codigo_operacional = SerializerMethodField()
+    
+    class Meta:
+        model = Alimentadores
+        
+    def get_links(self, obj):
+        request = self.context['request']
+        
+        _links = {
+            'self': reverse('alimentadores-detail', kwargs={'id': obj.pk}, request=request),
+        }
+        
+        return _links
+    
+    def get_instalacao_nome(self, obj):        
+        return obj.instalacao.nome if obj.instalacao else None
+    
+    def get_instalacao_sigla(self, obj):        
+        return obj.instalacao.sigla if obj.instalacao else None
+    
+    def get_disjuntor_codigo_operacional(self, obj):
+        return obj.disjuntor.codigo_operacional if obj.disjuntor else None 
+        

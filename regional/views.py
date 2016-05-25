@@ -1,9 +1,9 @@
 from regional.serializers import UnidadesSerializer, DivisoesSerializer,\
     ColaboradoresSerializer, EquipesSerializer, ColaboradoresListSerializer,\
     InstalacoesSerializer, EquipamentosSerializer, InstalacaoTiposSerializer,\
-    EquipamentoTiposSerializer
+    EquipamentoTiposSerializer, AlimentadoresSerializer
 from regional.models import Unidades, Divisoes, Colaboradores, Equipes,\
-    Instalacoes, Equipamentos, InstalacaoTipos, EquipamentoTipos
+    Instalacoes, Equipamentos, InstalacaoTipos, EquipamentoTipos, Alimentadores
 from rest_framework_mongoengine import viewsets
 from rest_framework import filters, authentication, permissions
 
@@ -54,11 +54,17 @@ class ColaboradoresViewSet(viewsets.ModelViewSet):
     def get_queryset(self):        
         queryset = Colaboradores.objects
         filtro = self.request.query_params.get('filtro', None)
+        divisao = self.request.query_params.get('divisao', None)
         
         if filtro:
-            queryset = queryset(Q(nome_completo__contains=filtro) | Q(matricula__contains=filtro) | Q(email__contains=filtro))
+            divisoes = Divisoes.objects.filter(Q(nome__contains=filtro) | Q(sigla__contains=filtro))
+            queryset = queryset(Q(nome_completo__contains=filtro) | Q(matricula__contains=filtro) | Q(email__contains=filtro) | Q(divisao__in=divisoes))
         
-        return queryset.all()
+        if divisao:
+            print(divisao)
+            queryset = queryset.filter(divisao=divisao)
+            
+        return queryset.order_by('nome_completo')
     
     
 class ColaboradoresListViewSet(viewsets.ModelViewSet):
@@ -121,7 +127,7 @@ class InstalacoesViewSet(viewsets.ModelViewSet):
         if filtro:
             queryset = queryset(Q(nome__contains=filtro) | Q(sigla__contains=filtro) | Q(tipo__contains=filtro))
         
-        return queryset.all()
+        return queryset.order_by('nome')
     
 
 class EquipamentoTiposViewSet(viewsets.ModelViewSet):
@@ -146,14 +152,40 @@ class EquipamentosViewSet(viewsets.ModelViewSet):
     def get_queryset(self):        
         queryset = Equipamentos.objects
         instalacao = self.request.query_params.get('instalacao', None)
+        tipo = self.request.query_params.get('tipo', None)
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:
-            queryset = queryset(Q(codigo_operacional__contains=filtro))
-        
-        print(instalacao)
+            tipos = EquipamentoTipos.objects.filter(nome__contains=filtro)
+            queryset = queryset(Q(codigo_operacional__contains=filtro) | Q(tipo__in=tipos) | Q(descricao__contains=filtro) | Q(observacao__contains=filtro))
         
         if instalacao:
-            return queryset.filter(instalacao=instalacao).all()
-        else:
-            return queryset.all()
+            queryset =  queryset.filter(instalacao=instalacao)
+        
+        if tipo:
+            equipamento_tipo = EquipamentoTipos.objects.filter(nome=tipo)
+            queryset =  queryset.filter(tipo__in=equipamento_tipo)
+        
+        return queryset.order_by('codigo_operacional')
+        
+        
+class AlimentadoresViewSet(viewsets.ModelViewSet):
+    queryset = Alimentadores.objects.all().order_by('codigo_operacional')
+    serializer_class = AlimentadoresSerializer 
+    pagination_class = LargeResultsSetPagination
+    
+    def get_queryset(self):        
+        queryset = Alimentadores.objects
+        filtro = self.request.query_params.get('filtro', None)
+        instalacao = self.request.query_params.get('instalacao', None) 
+
+        if instalacao:
+            queryset = queryset(instalacao=instalacao)
+        
+        if filtro:
+            disjuntor = Equipamentos.objects.filter(codigo_operacional__contains=filtro)
+            queryset = queryset(Q(codigo_operacional__contains=filtro) | Q(nome__contains=filtro) | Q(disjuntor__in=disjuntor))
+            
+        return queryset.order_by('codigo_operacional')
+    
+            

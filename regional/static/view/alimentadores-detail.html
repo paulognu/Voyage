@@ -1,0 +1,95 @@
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+    		<div class="x_title">
+      			<h2>Alimentador <small>Cadastro</small></h2>
+		    	
+		    	<div class="clearfix"></div>
+
+    		</div>
+    			
+			<div class="x_content">
+
+  				<form class="form-horizontal form-label-left" >
+
+              <div class="item form-group" ng-class="{bad: codigo_operacional_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Código Operacional <span class="required">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o nome da Alimentador" type="text" ng-model="alimentador.codigo_operacional">
+                </div>
+                <div class="alert">"{{ codigo_operacional_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: nome_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nome <span class="required">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o nome da Alimentador" type="text" ng-model="alimentador.nome">
+                </div>
+                <div class="alert">"{{ nome_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: instalacao_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Instalação
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <select id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o tipo da Alimentador" type="text" ng-model="alimentador.instalacao" ng-change="carregarDisjuntoresList(alimentador.instalacao)">
+                      <option ng-repeat="instalacao in instalacoes"  value="{{ instalacao.id }}">{{ instalacao.nome }}</option>
+                    </select>
+                </div>
+                <div class="alert">"{{ instalacao_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: disjuntor_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Disjuntor
+                </label>
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <select id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe a divisão" type="text" ng-model="alimentador.disjuntor">
+                      <option ng-repeat="disjuntor in disjuntores" value="{{ disjuntor.id }}">{{ disjuntor.codigo_operacional }} - {{ disjuntor.descricao }}</option>
+                    </select>
+                </div>
+                <div class="alert">"{{ disjuntor_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: descricao_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Descrição <span class="required">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o nome da Alimentador" type="text" ng-model="alimentador.descricao">
+                </div>
+                <div class="alert">"{{ descricao_error }}" </div>
+              </div>
+
+              <div class="item form-group" ng-class="{bad: observacao_error}">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Observação <span class="required">*</span>
+                </label>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o nome da Alimentador" type="text" ng-model="alimentador.observacao">
+                </div>
+                <div class="alert">"{{ observacao_error }}" </div>
+              </div>
+
+              <div class="ln_solid"></div>
+
+              <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                  <a onclick="window.history.back();" class="btn btn-primary">Voltar</a>
+                  <a ng-click="excluirAlimentadoresDetail(alimentador);" class="btn btn-warning" ng-if="alimentador && alimentador.id">Excluir</a>
+                  <a id="send" ng-click="salvarAlimentadoresDetail(alimentador);" class="btn btn-success">Salvar</a>
+                </div>
+              </div>
+
+			    </form>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+
+</script>

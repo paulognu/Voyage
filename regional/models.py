@@ -2,8 +2,8 @@
 
 from mongoengine import Document
 from mongoengine.fields import StringField, EmailField, ReferenceField,\
-    ListField, DateTimeField, BooleanField, EmbeddedDocumentField, FloatField,\
-    DictField
+    ListField, DateTimeField, BooleanField, EmbeddedDocumentField, FloatField
+    
 from mongoengine.document import EmbeddedDocument 
     
     
@@ -86,4 +86,13 @@ class Equipamentos(Document):
     corrente_fase_v = EmbeddedDocumentField(MedidaAnalogica, required=False)
     
     posicao = EmbeddedDocumentField(MedidaDigital, required=False)
+    
+    
+class Alimentadores(Document):
+    codigo_operacional = StringField(unique=True, required=True)
+    nome = StringField(required=False, null=False, blank=True)
+    instalacao = ReferenceField(Instalacoes, required=True) 
+    disjuntor = ReferenceField(Equipamentos, required=False, blank=True)
+    observacao = StringField(null=True, blank=True)
+    descricao = StringField(null=True, blank=True)    
             

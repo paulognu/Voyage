@@ -4,9 +4,11 @@ angular.module("Voyage").controller("colaboradoresCtrl", function ($scope, $http
 	$scope.colaborador = {
 		matricula: null,
 		nome_completo: null,
-		email: null
+		email: null,
+		divisao: $routeParams.divisao
 	};
-
+	
+	$scope.divisao = $routeParams.divisao;
 	$scope.nome_completo_error = null;
 	$scope.matricula_error = null;
 	$scope.email_error = null;
@@ -45,8 +47,18 @@ angular.module("Voyage").controller("colaboradoresCtrl", function ($scope, $http
 		url = "/api/colaboradores/";
 		consulta = url;
 
+		divisao = $routeParams.divisao;
+
 		if(filtro) {
 			consulta += '?filtro=' + filtro;			
+		}
+
+		if(divisao) {
+			if(filtro) {
+				consulta += '&divisao=' + divisao;
+			} else {
+				consulta += '?divisao=' + divisao;
+			}
 		}
 
 		$http.get(consulta)

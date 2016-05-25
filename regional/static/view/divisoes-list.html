@@ -48,7 +48,10 @@
 			    		<tr ng-repeat="divisao in divisoes">
 			    			<td>{{ divisao.nome }}</td>
 			    			<td>{{ divisao.sigla }}</td>
-			    			<td><a class="btn btn-primary btn-xs" href="#/divisoes-detail/{{ divisao.id }}/">Detalhes </a></td>
+			    			<td>
+			    				<a class="btn btn-primary btn-xs" href="#/divisoes-detail/{{ divisao.id }}/">Detalhes </a>
+			    				<a class="btn btn-primary btn-xs" href="#/colaboradores-list/?divisao={{ divisao.id }}">Colaboradores </a>
+			    			</td>
 			    		</tr>
 			    	</tbody>
 			    </table>

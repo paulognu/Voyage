@@ -6,9 +6,11 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		corrente_fase_a: {},
 		corrente_fase_b: {},
 		corrente_fase_v: {},
-		posicao: {}
+		posicao: {},
+		instalacao: $routeParams.instalacao
 	};
 
+	$scope.instalacao = $routeParams.instalacao
 	$scope.instalacoes = [];
 
 	$scope.activeTab = 0;
@@ -213,7 +215,8 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 
 	var redirectList = function () {
-		$window.location.href = "#/equipamentos-list/";
+		//$window.location.href = "#/equipamentos-list/";
+		$window.history.back();
 	};
 
 
@@ -230,13 +233,15 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 		if($routeParams.instalacao) {
 			if(params) {
-				params = '&instalacao=' + $routeParams.instalacao;
+				params += '&instalacao=' + $routeParams.instalacao;
 			} else {
-				params = '?instalacao=' + $routeParams.instalacao;				
+				params += '?instalacao=' + $routeParams.instalacao;				
 			}
 		}
 
 		consulta += params;
+
+		console.log(consulta);
 
 
 		$http.get(consulta)
