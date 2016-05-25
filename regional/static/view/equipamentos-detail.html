@@ -79,7 +79,8 @@
 
               <div class="nav nav-tabs">
                 <li ng-class="{'active': activeTab == 0}"><a href="" ng-click="setActiveTab(0)">Potência</a></li>
-                <li ng-class="{'active': activeTab == 1}"><a href="" ng-click="setActiveTab(1)">Corrente</a></li>
+                <li ng-class="{'active': activeTab == 1}"><a href="" ng-click="setActiveTab(1)">Corrente
+                </a></li>
                 <li ng-class="{'active': activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Estado</a></li>
               </div>
 
@@ -103,7 +104,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
                     </label>
                     <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.potencia_ativa.referencia">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="potencia_ativa_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.potencia_ativa.referencia">
                     </div>
                     <div class="alert">{{ potencia_ativa.referencia_error }} </div>
                   </div>
@@ -140,7 +141,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
                     </label>
                     <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.potencia_reativa.referencia">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="potencia_reativa_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.potencia_reativa.referencia">
                     </div>
                     <div class="alert">{{ potencia_reativa.referencia_error }} </div>
                   </div>
@@ -161,13 +162,50 @@
                     <div class="alert">"{{ potencia_reativa.valor_manual_error }}" </div>
                   </div>
 
+                  <!-- Fator de Potência -->
+
+                  <h2>Fator de Potência</h2>
+
+                  <div class="item form-group" ng-class="{bad: fator_potencia.aquisicao_automatica_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="checkbox" name="fator_potencia_aquisicao_automatica" ng-model="equipamento.fator_potencia.aquisicao_automatica" checked>
+                    </div>
+                    <div class="alert">{{ fator_potencia.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: fator_potencia.referencia_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="fator_potencia_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.fator_potencia.referencia">
+                    </div>
+                    <div class="alert">{{ fator_potencia.referencia_error }} </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: fator_potencia.fator_error}">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Fator
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Fator de multiplicação" type="text" value='1.0' ng-model="equipamento.fator_potencia.fator">
+                    </div>
+                    <div class="alert">"{{ fator_potencia.fator_error }}" </div>
+                  </div>
+                  <div class="item form-group" ng-class="{bad: fator_potencia.valor_manual_error}" id="valor_manual">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
+                    </label>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.fator_potencia.valor_manual">
+                    </div>
+                    <div class="alert">"{{ fator_potencia.valor_manual_error }}" </div>
+                  </div>
+
                 </div>
 
                 <div class="tab-pane" ng-class="{'active': activeTab == 1}">
 
-                  <!-- Corrente A -->
+                  <!-- Corrente ØA -->
 
-                  <h2>Corrente A</h2>
+                  <h2>Corrente ØA</h2>
 
                   <div class="item form-group" ng-class="{bad: corrente_fase_a.aquisicao_automatica_error}">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
@@ -181,7 +219,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
                     </label>
                     <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.corrente_fase_a.referencia">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="corrente_fase_a_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.corrente_fase_a.referencia">
                     </div>
                     <div class="alert">{{ corrente_fase_a.referencia_error }} </div>
                   </div>
@@ -203,9 +241,9 @@
                   </div>
 
 
-                  <!-- Corrente B -->
+                  <!-- Corrente ØB -->
 
-                  <h2>Corrente B</h2>
+                  <h2>Corrente ØB</h2>
 
                   <div class="item form-group" ng-class="{bad: corrente_fase_b.aquisicao_automatica_error}">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
@@ -219,7 +257,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
                     </label>
                     <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.corrente_fase_b.referencia">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="corrente_fase_b_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.corrente_fase_b.referencia">
                     </div>
                     <div class="alert">{{ corrente_fase_b.referencia_error }} </div>
                   </div>
@@ -240,9 +278,9 @@
                     <div class="alert">"{{ corrente_fase_b.valor_manual_error }}" </div>
                   </div>
 
-                  <!-- Corrente V -->
+                  <!-- Corrente ØV -->
 
-                  <h2>Corrente V</h2>
+                  <h2>Corrente ØV</h2>
 
 
                   <div class="item form-group" ng-class="{bad: corrente_fase_v.aquisicao_automatica_error}">
@@ -257,7 +295,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
                     </label>
                     <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.corrente_fase_v.referencia">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="corrente_fase_v_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.corrente_fase_v.referencia">
                     </div>
                     <div class="alert">{{ corrente_fase_v.referencia_error }} </div>
                   </div>
@@ -298,7 +336,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
                     </label>
                     <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="ID do ponto" type="text" ng-model="equipamento.posicao.referencia">
+                        <input id="name" class="form-control col-md-7 col-xs-12" name="posicao_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.posicao.referencia">
                     </div>
                     <div class="alert">{{ posicao.referencia_error }} </div>
                   </div>

@@ -81,10 +81,30 @@ WSGI_APPLICATION = 'Voyage.wsgi.application'
 DATABASE = "oeor"
 connect("{database}".format(database=DATABASE))
 
+# Postgresql
+
+DATABASE_ROUTERS = ['BaseHistorica.router.consultaBDHRouter']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.dummy',
-    }
+    },
+    'baseconsolidada': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'bccorap_sage',
+        'PORT': 5432,
+        'USER': 'postgres',
+        'PASSWORD': '1qazxsw2!@',
+        'HOST': '192.168.28.41', # Seridor BDH
+    },
+    'basehistorica': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'bhcorap_sage',
+        'PORT': 5432,
+        'USER': 'postgres',
+        'PASSWORD': '1qazxsw2!@',
+        'HOST': '192.168.28.41', # Seridor BDH
+    },             
 }
 
 # Password validation

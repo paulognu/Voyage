@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
+encoding//BaseHistorica/models.py=utf-8
+encoding//BaseHistorica/urls.py=utf-8
 encoding//regional/models.py=utf-8
 encoding//regional/serializers.py=utf-8

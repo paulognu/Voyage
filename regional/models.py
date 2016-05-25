@@ -65,7 +65,7 @@ class MedidaAnalogica(EmbeddedDocument):
 class MedidaDigital(EmbeddedDocument):
     aquisicao_automatica = BooleanField(default=True, required=False)
     inversao = BooleanField(default=False)
-    referencia = StringField(default='-')
+    referencia = ListField(StringField(default='-'))
     valor_manual = StringField(default='-')    
         
     
@@ -80,6 +80,7 @@ class Equipamentos(Document):
     
     potencia_ativa = EmbeddedDocumentField(MedidaAnalogica, required=False)
     potencia_reativa = EmbeddedDocumentField(MedidaAnalogica, required=False)
+    fator_potencia = EmbeddedDocumentField(MedidaAnalogica, required=False)
 
     corrente_fase_a = EmbeddedDocumentField(MedidaAnalogica, required=False)
     corrente_fase_b = EmbeddedDocumentField(MedidaAnalogica, required=False)

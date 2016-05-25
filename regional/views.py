@@ -5,11 +5,10 @@ from regional.serializers import UnidadesSerializer, DivisoesSerializer,\
 from regional.models import Unidades, Divisoes, Colaboradores, Equipes,\
     Instalacoes, Equipamentos, InstalacaoTipos, EquipamentoTipos, Alimentadores
 from rest_framework_mongoengine import viewsets
-from rest_framework import filters, authentication, permissions
 
 from mongoengine.queryset.visitor import Q
 from rest_framework.pagination import PageNumberPagination
-from django.contrib.auth import authenticate
+
 
 class LargeResultsSetPagination(PageNumberPagination):
     page_size = 50
@@ -143,6 +142,7 @@ class EquipamentoTiposViewSet(viewsets.ModelViewSet):
             queryset = queryset(Q(nome__contains=filtro))
         
         return queryset.all()        
+
 
 class EquipamentosViewSet(viewsets.ModelViewSet):
     queryset = Equipamentos.objects.all().order_by('nome')

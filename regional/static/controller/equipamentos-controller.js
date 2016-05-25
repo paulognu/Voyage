@@ -3,10 +3,13 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 	$scope.equipamento = {
 		potencia_ativa: {},
 		potencia_reativa: {},
+		fator_potencia: {},
 		corrente_fase_a: {},
 		corrente_fase_b: {},
 		corrente_fase_v: {},
-		posicao: {},
+		posicao: {
+			referencia: []
+		},
 		instalacao: $routeParams.instalacao
 	};
 
@@ -19,6 +22,7 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 	$scope.potencia_ativa = {};
 	$scope.potencia_reativa = {};
+	$scope.fator_potencia = {};
 	
 	$scope.corrente_fase_a = {};
 	$scope.corrente_fase_b = {};
@@ -125,6 +129,33 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 			}
 		}
 
+		// Fator Potência
+
+		if(dados.fator_potencia) {
+			if(dados.fator_potencia.aquisicao_automatica) {
+				$scope.fator_potencia.aquisicao_automatica_error = dados.fator_potencia.aquisicao_automatica[0];
+			} else {
+				$scope.fator_potencia.aquisicao_automatica_error = null;
+			}
+
+			if(dados.fator_potencia.fator) {
+				$scope.fator_potencia.fator_error = dados.fator_potencia.fator[0];
+			} else {
+				$scope.fator_potencia.fator_error = null;
+			}
+
+			if(dados.fator_potencia.referencia) {
+				$scope.fator_potencia.referencia_error = dados.fator_potencia.referencia[0];
+			} else {
+				$scope.fator_potencia.referencia_error = null;
+			}
+
+			if(dados.fator_potencia.valor_manual) {
+				$scope.fator_potencia.valor_manual_error = dados.fator_potencia.valor_manual[0];
+			} else {
+				$scope.fator_potencia.valor_manual_error = null;
+			}
+		}
 
 		// Corrente Fase A
 
@@ -265,7 +296,11 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 		$http.get(consulta)
 			.success(function (dados) {
-				$scope.equipamento = dados;				
+				$scope.equipamento = dados;
+
+				if(dados.posicao)  {
+					$("[name='posicao_ref']").tokenfield('setTokens', dados.posicao.referencia);
+				}
 				
 				if($scope.equipamento.potencia_ativa) {
 					$("[name='potencia_ativa_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.potencia_ativa.aquisicao_automatica);
@@ -331,10 +366,12 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		if (equipamento && equipamento.id) {
 			consulta = url + equipamento.id + "/";
 
+			console.log(equipamento.posicao.referencia);
+
 			$http.put(consulta, equipamento)
 				.success(function (dados) {
 					$scope.equipamento = dados;
-					redirectList();
+					//redirectList();
 				})
 				.error(function (dados) {
 					validate(dados);
@@ -417,88 +454,19 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		$scope.carregarEquipamentosList();
 	}
 
-	$("[name='potencia_ativa_aquisicao_automatica']").bootstrapSwitch({
-	    onText: 'Automatico', 
-	    offText: 'Manual',
-	    size: 'small',
-	    onInit: function (event, state) {
+	var setMedidaAnalogica = function (name) {
+		$("[name='" + name + "']").bootstrapSwitch({
+		    onText: 'Automatico', 
+		    offText: 'Manual',
+		    size: 'small',
+		    onInit: function (event, state) {
 
-	    },
-	    onSwitchChange: function (event, state) {
-	    	$scope.equipamento.potencia_ativa.aquisicao_automatica = state;
-	    }
-	  });
-
-	$("[name='potencia_reativa_aquisicao_automatica']").bootstrapSwitch({
-	    onText: 'Automatico', 
-	    offText: 'Manual',
-	    size: 'small',
-	    onInit: function (event, state) {
-
-	    },
-	    onSwitchChange: function (event, state) {
-	    	$scope.equipamento.potencia_reativa.aquisicao_automatica = state;
-	    }
-	  });
-
-	$("[name='corrente_fase_a_aquisicao_automatica']").bootstrapSwitch({
-	    onText: 'Automatico', 
-	    offText: 'Manual',
-	    size: 'small',
-	    onInit: function (event, state) {
-
-	    },
-	    onSwitchChange: function (event, state) {
-	    	if(!$scope.equipamento.corrente_fase_a) {
-	    		$scope.equipamento.corrente_fase_a = {};
-	    	}	    	$scope.equipamento.corrente_fase_a.aquisicao_automatica = state;
-	    }
-	  });
-
-	$("[name='corrente_fase_b_aquisicao_automatica']").bootstrapSwitch({
-	    onText: 'Automatico', 
-	    offText: 'Manual',
-	    size: 'small',
-	    onInit: function (event, state) {
-
-	    },
-	    onSwitchChange: function (event, state) {
-	    	if(!$scope.equipamento.corrente_fase_b) {
-	    		$scope.equipamento.corrente_fase_b = {};
-	    	}	    	$scope.equipamento.corrente_fase_b.aquisicao_automatica = state;
-	    }
-	  });
-
-	$("[name='corrente_fase_v_aquisicao_automatica']").bootstrapSwitch({
-	    onText: 'Automatico', 
-	    offText: 'Manual',
-	    size: 'small',
-	    onInit: function (event, state) {
-
-	    },
-	    onSwitchChange: function (event, state) {
-	    	if(!$scope.equipamento.corrente_fase_v) {
-	    		$scope.equipamento.corrente_fase_v = {};
-	    	}
-	    	$scope.equipamento.corrente_fase_v.aquisicao_automatica = state;
-	    }
-	  });
-
-	$("[name='posicao_aquisicao_automatica']").bootstrapSwitch({
-	    onText: 'Automatico', 
-	    offText: 'Manual',
-	    size: 'small',
-	    state: true,
-	    onInit: function (event, state) {
-
-	    },
-	    onSwitchChange: function (event, state) {
-	    	if(!$scope.equipamento.posicao) {
-	    		$scope.equipamento.posicao = {};
-	    	}
-	    	$scope.equipamento.posicao.aquisicao_automatica = state;
-	    }
-	  });
+		    },
+		    onSwitchChange: function (event, state) {
+		    	$scope.equipamento.potencia_ativa.aquisicao_automatica = state;
+		    }
+		  });
+	};
 
 	$("[name='posicao_inversao']").bootstrapSwitch({
 	    onText: 'SIM', 
@@ -516,4 +484,104 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 	    	console.log($scope.equipamento.posicao.inversao);
 	    }
 	  });
+
+
+	var setAutocompleteAnalogicaRef = function (name) {
+		$("[name='" + name + "']").autocomplete({
+			source: function (request, response) {
+					$http.get('/bdh/pas_r/?filtro=' + $(this)[0].term).success(function (dados) {
+						teste = [];
+						dados.results.forEach(function (item) {
+							if(item) {
+								//teste.push(item.id.trim() + ' (' + item.nome.trim() + ')');
+								teste.push({
+									label: item.id.trim() + ' (' + item.nome.trim() + ')',
+									value: item.id.trim()
+								});
+							}
+						})
+						response(teste);
+					});
+			},
+			delay: 100,
+			change: function (event, ui) {
+				//$scope.equipamento.potencia_ativa.referencia = ui.item;
+			}
+		});
+	};
+
+	var setAutocompleteDigitalRef = function (name) {
+		$("[name='" + name + "']").autocomplete();
+		$("[name='" + name + "']").tokenfield({
+			autocomplete: {
+				source: function (request, response) {
+						$http.get('/bdh/pds_r/?filtro=' + $(this)[0].term).success(function (dados) {
+							teste = [];
+							dados.results.forEach(function (item) {
+								if(item) {
+									//teste.push(item.id.trim() + ' (' + item.nome.trim() + ')');
+									teste.push({
+										label: item.id.trim() + ' (' + item.nome.trim() + ')',
+										value: item.id.trim()
+									});
+								}
+							})
+							response(teste);
+						});
+				},
+				delay: 100,
+				change: function (event, ui) {
+					//$scope.equipamento.potencia_ativa.referencia = ui.item;
+				}
+			}
+		});
+	};
+
+	setMedidaAnalogica('potencia_ativa_aquisicao_automatica');
+	setMedidaAnalogica('potencia_reativa_aquisicao_automatica');
+	setMedidaAnalogica('fator_potencia_aquisicao_automatica');
+	setMedidaAnalogica('corrente_fase_a_aquisicao_automatica');
+	setMedidaAnalogica('corrente_fase_b_aquisicao_automatica');
+	setMedidaAnalogica('corrente_fase_v_aquisicao_automatica');
+	setMedidaAnalogica('posicao_aquisicao_automatica');
+	
+
+	setAutocompleteAnalogicaRef('potencia_ativa_ref');
+	setAutocompleteAnalogicaRef('potencia_reativa_ref');
+	setAutocompleteAnalogicaRef('fator_potencia_ref');
+	setAutocompleteAnalogicaRef('corrente_fase_a_ref');
+	setAutocompleteAnalogicaRef('corrente_fase_b_ref');
+	setAutocompleteAnalogicaRef('corrente_fase_v_ref');
+
+	/*
+	 * Posição Abterto/Fechado
+	 */
+
+	var adicionarPosicaoRef = function (e) {
+		var some_extern = $scope.equipamento.posicao.referencia.some(function (item) {
+			return item === e.attrs.value;
+		});
+
+		var some_intern = $(this).val().split(',').some(function (item) {
+			return item.trim() === e.attrs.value.trim();
+		});
+
+		if(!some_extern) {
+			$scope.equipamento.posicao.referencia.push(e.attrs.value);
+		}
+
+		return !(some_intern && some_extern);
+	};
+
+	var removerPosicaoRef = function (e) {
+		$scope.equipamento.posicao.referencia = $scope.equipamento.posicao.referencia.filter(function (item) {
+			return e.attrs.value !== item;
+		});
+	};
+
+	setAutocompleteDigitalRef('posicao_ref');
+	$("[name='posicao_ref']")
+      .on('tokenfield:createtoken', adicionarPosicaoRef)
+      .on('tokenfield:removetoken', removerPosicaoRef);
+
 });
