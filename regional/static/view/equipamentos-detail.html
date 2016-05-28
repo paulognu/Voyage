@@ -81,7 +81,7 @@
                 <li ng-class="{'active': activeTab == 0}"><a href="" ng-click="setActiveTab(0)">Potência</a></li>
                 <li ng-class="{'active': activeTab == 1}"><a href="" ng-click="setActiveTab(1)">Corrente</a></li>
                 <li ng-class="{'active': activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Estado</a></li>
-                <li ng-class="{'active': activeTab == 3}"><a href="" ng-click="setActiveTab(3)">ERAC - Esquema Reginal de Alívio de Carga</a></li>
+                <li ng-class="{'active': activeTab == 3}"><a href="" ng-click="setActiveTab(3)">ERAC</a></li>
                 <li ng-class="{'active': activeTab == 4}"><a href="" ng-click="setActiveTab(4)">SEP de Sobrecarga de Linha</a></li>
                 <li ng-class="{'active': activeTab == 5}"><a href="" ng-click="setActiveTab(5)">SEP de Sobrecarga de Transformador</a></li>
                 <li ng-class="{'active': activeTab == 6}"><a href="" ng-click="setActiveTab(6)">Grupo do PCMC</a></li>
@@ -92,75 +92,33 @@
                 <div class="tab-pane" ng-class="{'active': activeTab == 0}">
 
                   <!-- Potência Ativa-->
-                  {{ equipamento.potencia_ativa }}
                   <medida-analogica nome="potencia_ativa" titulo="Potência Ativa" ng-model="equipamento.potencia_ativa"></medida-analogica>
 
                   <!-- Potência Reativa -->
-                  {{ equipamento.potencia_reativa }}
-                  <medida-analogica nome="potencia_reativa" titulo="Potência Reativa Hacker" ng-model="equipamento.potencia_reativa"></medida-analogica>
+                  <medida-analogica nome="potencia_reativa" titulo="Potência Reativa" ng-model="equipamento.potencia_reativa"></medida-analogica>
 
                   <!-- Fator de Potência -->
-                  {{ equipamento.fator_potencia }}
-                  <medida-analogica nome="fator_potencia" titulo="Fator de Potência<" ng-model="equipamento.fator_potencia"></medida-analogica>
+                  <medida-analogica nome="fator_potencia" titulo="Fator de Potência" ng-model="equipamento.fator_potencia"></medida-analogica>
 
                 </div>
 
                 <div class="tab-pane" ng-class="{'active': activeTab == 1}">
 
                   <!-- Corrente ØA -->
-                  {{ equipamento.corrente_fase_a }}
-                  <medida-analogica nome="corrente_fase_a" titulo="Corrente ØA<" ng-model="equipamento.corrente_fase_a"></medida-analogica>
+                  <medida-analogica nome="corrente_fase_a" titulo="Corrente ØA" ng-model="equipamento.corrente_fase_a"></medida-analogica>
 
                   <!-- Corrente ØB -->
-                  {{ equipamento.corrente_fase_b }}
-                  <medida-analogica nome="corrente_fase_b" titulo="Corrente ØB<" ng-model="equipamento.corrente_fase_b"></medida-analogica>
+                  <medida-analogica nome="corrente_fase_b" titulo="Corrente ØB" ng-model="equipamento.corrente_fase_b"></medida-analogica>
 
                   <!-- Corrente ØV -->
-                  {{ equipamento.corrente_fase_v }}
-                  <medida-analogica nome="corrente_fase_v" titulo="Corrente ØV<" ng-model="equipamento.corrente_fase_v"></medida-analogica>
+                  <medida-analogica nome="corrente_fase_v" titulo="Corrente ØV" ng-model="equipamento.corrente_fase_v"></medida-analogica>
 
                 </div>
 
                 <div class="tab-pane" ng-class="{'active': activeTab == 2}">
                   <!-- Potência Ativa-->
 
-                  <h2>Posição</h2>                    
-
-                  <div class="item form-group" ng-class="{bad: posicao.aquisicao_automatica_error}">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
-                    </label>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input type="checkbox" name="posicao_aquisicao_automatica" ng-model="equipamento.posicao.aquisicao_automatica" checked>
-                    </div>
-                    <div class="alert">{{ posicao.referencia_error }} </div>
-                  </div>
-
-                  <div class="item form-group" ng-class="{bad: posicao.referencia_error}">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
-                    </label>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input id="name" class="form-control col-md-7 col-xs-12" name="posicao_ref" placeholder="ID do ponto" type="text" ng-model="equipamento.posicao.referencia">
-                    </div>
-                    <div class="alert">{{ posicao.referencia_error }} </div>
-                  </div>
-
-                  <div class="item form-group" ng-class="{bad: posicao.inversao_error}">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inversão 
-                    </label>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input type="checkbox" name="posicao_inversao" ng-model="equipamento.estado.posicao_inversao" checked>
-                    </div>
-                    <div class="alert">{{ posicao.inversao_error }} </div>
-                  </div>
-
-                  <div class="item form-group" ng-class="{bad: posicao.valor_manual_error}" id="valor_manual">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor manual
-                    </label>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <input id="valor_manual" class="form-control col-md-7 col-xs-12" name="name" placeholder="" type="text" value='0.0' ng-model="equipamento.posicao.valor_manual">
-                    </div>
-                    <div class="alert">"{{ posicao.valor_manual_error }}" </div>
-                  </div>
+                  <medida-digital nome="posicao" titulo="Posição" ng-model="equipamento.posicao"></medida-digital>
 
                 </div>
 

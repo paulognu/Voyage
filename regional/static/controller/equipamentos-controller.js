@@ -476,6 +476,9 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 				$("[nome='corrente_fase_b'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.corrente_fase_b.aquisicao_automatica);
 				$("[nome='corrente_fase_v'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.corrente_fase_v.aquisicao_automatica);
 
+				$("[nome='posicao'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.posicao.aquisicao_automatica);
+				$('[nome="posicao"] [name="ngModel_inversao"]').bootstrapSwitch('state', $scope.equipamento.posicao.inversao);
+
 			})
 			.error(function (dados) {
 
@@ -721,8 +724,8 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 	setAutocompleteAnalogicaRef('corrente_fase_b_ref');
 	setAutocompleteAnalogicaRef('corrente_fase_v_ref');
 
-	setMedidaAnalogica('posicao_aquisicao_automatica', $scope.equipamento.posicao);
-	setPosicaoInverso('posicao_inversao', $scope.equipamento.posicao);
+	//setMedidaAnalogica('posicao_aquisicao_automatica', $scope.equipamento.posicao);
+	//setPosicaoInverso('posicao_inversao', $scope.equipamento.posicao);
 
 	setMedidaAnalogica('erac1oEst_aquisicao_automatica', $scope.equipamento.erac1oEst);
 	setPosicaoInverso('erac1oEst_inversao', $scope.equipamento.erac1oEst);
