@@ -11,15 +11,15 @@ angular.module("Voyage").directive("medidaAnalogica", ['$http', function ($http)
 		},
 		link: function (scope, element, attributes) {
 
-			var obj = $("[nome='"+ scope.nome +"'] [name='ngModel_aquisicao_automatica']");
-			var objRef = $("[nome='"+ scope.nome +"'] [name='ngModel_ref']");
-			 
 			if(!scope.ngModel) {
 				scope.ngModel = {
 					aquisicao_automatica: true,
 					referencia: null
 				}
 			}
+
+			var obj = $("[nome='"+ scope.nome +"'] [name='ngModel_aquisicao_automatica']");
+			var objRef = $("[nome='"+ scope.nome +"'] [name='ngModel_ref']");
 
 			obj.bootstrapSwitch({
 				onText: 'Automatico', 

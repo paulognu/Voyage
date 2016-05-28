@@ -1,6 +1,6 @@
 angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http, $routeParams, $window) {
 	$scope.equipamentos = [];
-	$scope.equipamento = {
+	 $scope.equipamento = {
 		potencia_ativa: {},
 		potencia_reativa: {},
 		fator_potencia: {},
@@ -315,13 +315,17 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 	$scope.carregarEquipamentosDetail = function (id) {
 
 		var setarValorAnalogico = function (nome, ngModel) {
-			$("[nome='" + nome + "'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', ngModel.aquisicao_automatica);
+			if(ngModel) {
+				$("[nome='" + nome + "'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', ngModel.aquisicao_automatica);
+			}
 		};
 
 		var setarValorDigital = function (nome, ngModel) {
-			$("[nome=" + nome + "] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', ngModel.aquisicao_automatica);
-			$("[nome=" + nome + "] [name='ngModel_inversao']").bootstrapSwitch('state', ngModel.inversao);
-			$("[nome=" + nome + "] [name='ngModel_ref']").tokenfield('setTokens', ngModel.referencia);
+			if(ngModel) {
+				$("[nome=" + nome + "] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', ngModel.aquisicao_automatica);
+				$("[nome=" + nome + "] [name='ngModel_inversao']").bootstrapSwitch('state', ngModel.inversao);
+				$("[nome=" + nome + "] [name='ngModel_ref']").tokenfield('setTokens', ngModel.referencia);
+			}
 		};
 
 		if(id === "null") {
