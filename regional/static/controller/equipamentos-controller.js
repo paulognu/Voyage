@@ -95,6 +95,36 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		}
 	};
 
+	var validate_medida_digital = function (dados, ngModel) {
+		clean(ngModel);
+
+		if(dados) {
+			if(dados.aquisicao_automatica) {
+				ngModel.aquisicao_automatica_error = dados.aquisicao_automatica[0];
+			} else {
+				ngModel.aquisicao_automatica_error = null;
+			}
+
+			if(dados.inversao) {
+				ngModel.inversao_error = dados.inversao[0];
+			} else {
+				ngModel.inversao_error = null;
+			}
+
+			if(dados.referencia) {
+				ngModel.referencia_error = dados.referencia[0];
+			} else {
+				ngModel.referencia_error = null;
+			}
+
+			if(dados.valor_manual) {
+				ngModel.valor_manual_error = dados.valor_manual[0];
+			} else {
+				ngModel.valor_manual_error = null;
+			}
+		}
+	};
+
 	var validate = function (dados) {
 
 		if(dados.codigo_operacional) {
@@ -151,6 +181,23 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		// Corrente Fase V
 		validate_medida_analogica(dados.corrente_fase_v, $scope.equipamento.corrente_fase_v);
 
+		// Posição
+		validate_medida_digital(dados.posicao, $scope.equipamento.posicao);
+
+		// ERAC
+		validate_medida_digital(dados.erac1oEst, $scope.equipamento.erac1oEst);
+		validate_medida_digital(dados.erac2oEst, $scope.equipamento.erac2oEst);
+
+		// SEP de sobrecarga de Linha
+		validate_medida_digital(dados.sl1oEst, $scope.equipamento.sl1oEst);
+		validate_medida_digital(dados.sl2oEst, $scope.equipamento.sl2oEst);
+		validate_medida_digital(dados.sl3oEst, $scope.equipamento.sl3oEst);
+
+		// SEP de sobrecarga de Transformador
+		validate_medida_digital(dados.stEst, $scope.equipamento.stEst);
+
+		// Grupo PCMC
+		validate_medida_digital(dados.grupo_pcmc, $scope.equipamento.grupo_pcmc);
 	};
 
 
@@ -193,11 +240,19 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 	$scope.carregarEquipamentosDetail = function (id) {
 
+		/*
+		 *  Este código deverá ser revisto futuramente, para seguirem as melhores práticas!
+		 */
+
 		var setarValorAnalogico = function (nome, ngModel) {
 			if(ngModel) {
 				$("[nome='" + nome + "'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', ngModel.aquisicao_automatica);
 			}
 		};
+
+		/*
+		 *  Este código deverá ser revisto futuramente, para seguirem as melhores práticas!
+		 */
 
 		var setarValorDigital = function (nome, ngModel) {
 			if(ngModel) {
