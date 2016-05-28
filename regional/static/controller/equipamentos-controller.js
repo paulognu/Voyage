@@ -58,12 +58,19 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 	$scope.corrente_fase_b = {};
 	$scope.corrente_fase_v = {};
 
+
+	$scope.setActiveTab = function (index) {
+		$scope.activeTab = index;
+	};
+
+
 	var clean = function (medida_analogica) {
 		medida_analogica.aquisicao_automatica_error = null;
 		medida_analogica.referencia_error = null;
 		medida_analogica.fator_error = null;
 		medida_analogica.valor_manual_error = null;
 	};
+
 
 	var validate_medida_analogica = function (dados, ngModel) {
 		clean(ngModel);
@@ -92,7 +99,11 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 			} else {
 				ngModel.valor_manual_error = null;
 			}
+
+			return ngModel.aquisicao_automatica_error || ngModel.fator_error || ngModel.referencia_error || ngModel.valor_manual_error;
 		}
+
+		return false;
 	};
 
 	var validate_medida_digital = function (dados, ngModel) {
@@ -122,7 +133,11 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 			} else {
 				ngModel.valor_manual_error = null;
 			}
+
+			return ngModel.aquisicao_automatica_error || ngModel.inversao_error || ngModel.referencia_error || ngModel.valor_manual_error;
 		}
+
+		return false;
 	};
 
 	var validate = function (dados) {
@@ -163,41 +178,68 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 			$scope.em_manutencao_error = null;
 		}
 
-		// Potência Ativa
-		validate_medida_analogica(dados.potencia_ativa, $scope.equipamento.potencia_ativa);			
-
-		// Potência Reativa
-		validate_medida_analogica(dados.potencia_reativa, $scope.equipamento.potencia_reativa);
-
-		// Fator Potência
-		validate_medida_analogica(dados.fator_potencia, $scope.equipamento.fator_potencia);
-
-		// Corrente Fase A
-		validate_medida_analogica(dados.corrente_fase_a, $scope.equipamento.corrente_fase_a);
-
-		// Corrente Fase B
-		validate_medida_analogica(dados.corrente_fase_b, $scope.equipamento.corrente_fase_b);
-
-		// Corrente Fase V
-		validate_medida_analogica(dados.corrente_fase_v, $scope.equipamento.corrente_fase_v);
-
-		// Posição
-		validate_medida_digital(dados.posicao, $scope.equipamento.posicao);
-
-		// ERAC
-		validate_medida_digital(dados.erac1oEst, $scope.equipamento.erac1oEst);
-		validate_medida_digital(dados.erac2oEst, $scope.equipamento.erac2oEst);
+		// Grupo PCMC
+		if(validate_medida_digital(dados.grupo_pcmc, $scope.equipamento.grupo_pcmc)){
+			$scope.setActiveTab(6);
+		}
+		
+		// SEP de sobrecarga de Transformador
+		if(validate_medida_digital(dados.stEst, $scope.equipamento.stEst)){
+			$scope.setActiveTab(5);
+		}		
 
 		// SEP de sobrecarga de Linha
-		validate_medida_digital(dados.sl1oEst, $scope.equipamento.sl1oEst);
-		validate_medida_digital(dados.sl2oEst, $scope.equipamento.sl2oEst);
-		validate_medida_digital(dados.sl3oEst, $scope.equipamento.sl3oEst);
+		if(validate_medida_digital(dados.sl1oEst, $scope.equipamento.sl1oEst)){
+			$scope.setActiveTab(4);
+		}
+		if(validate_medida_digital(dados.sl2oEst, $scope.equipamento.sl2oEst)){
+			$scope.setActiveTab(4);
+		}
+		if(validate_medida_digital(dados.sl3oEst, $scope.equipamento.sl3oEst)){
+			$scope.setActiveTab(4);
+		}
 
-		// SEP de sobrecarga de Transformador
-		validate_medida_digital(dados.stEst, $scope.equipamento.stEst);
+		// ERAC
+		if(validate_medida_digital(dados.erac1oEst, $scope.equipamento.erac1oEst)){
+			$scope.setActiveTab(3);
+		}
+		if(validate_medida_digital(dados.erac2oEst, $scope.equipamento.erac2oEst)){
+			$scope.setActiveTab(3);
+		}
+		
+		// Posição
+		if(validate_medida_digital(dados.posicao, $scope.equipamento.posicao)){
+			$scope.setActiveTab(2);
+		}
 
-		// Grupo PCMC
-		validate_medida_digital(dados.grupo_pcmc, $scope.equipamento.grupo_pcmc);
+		// Corrente Fase A
+		if(validate_medida_analogica(dados.corrente_fase_a, $scope.equipamento.corrente_fase_a)){
+			$scope.setActiveTab(1);
+		}
+		// Corrente Fase B
+		if(validate_medida_analogica(dados.corrente_fase_b, $scope.equipamento.corrente_fase_b)){
+			$scope.setActiveTab(1);
+		}
+		// Corrente Fase V
+		if(validate_medida_analogica(dados.corrente_fase_v, $scope.equipamento.corrente_fase_v)){
+			$scope.setActiveTab(1);
+		}
+
+		// Potência Ativa
+		if(validate_medida_analogica(dados.potencia_ativa, $scope.equipamento.potencia_ativa)) {
+			$scope.setActiveTab(0);
+		}
+
+		// Potência Reativa
+		if(validate_medida_analogica(dados.potencia_reativa, $scope.equipamento.potencia_reativa)) {
+			$scope.setActiveTab(0);
+		}
+
+		// Fator Potência
+		if(validate_medida_analogica(dados.fator_potencia, $scope.equipamento.fator_potencia)) {
+			$scope.setActiveTab(0);
+		}
+
 	};
 
 
@@ -404,10 +446,6 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 			.error(function (dados) {
 				
 			})
-	};
-
-	$scope.setActiveTab = function (index) {
-		$scope.activeTab = index;
 	};
 
 	if($routeParams.id) {
