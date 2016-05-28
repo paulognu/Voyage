@@ -478,6 +478,7 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 				$("[nome='posicao'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.posicao.aquisicao_automatica);
 				$('[nome="posicao"] [name="ngModel_inversao"]').bootstrapSwitch('state', $scope.equipamento.posicao.inversao);
+				$("[nome='posicao'] [name='ngModel_ref']").tokenfield('setTokens', $scope.equipamento.posicao.referencia);
 
 			})
 			.error(function (dados) {

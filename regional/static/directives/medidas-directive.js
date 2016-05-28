@@ -59,6 +59,8 @@ angular.module("Voyage").directive("medidaDigital", ['$http', function ($http) {
 					referencia: [],
 					posicao: {}
 				}
+			} else {
+				
 			}
 
 			var adicionarPosicaoRef = function (e) {
