@@ -1,4 +1,4 @@
-angular.module("Voyage").directive("medidaAnalogica", [function () {
+angular.module("Voyage").directive("medidaAnalogica", ['$http', function ($http) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -12,6 +12,7 @@ angular.module("Voyage").directive("medidaAnalogica", [function () {
 		link: function (scope, element, attributes) {
 
 			var obj = $("[nome='"+ scope.nome +"'] [name='ngModel_aquisicao_automatica']");
+			var objRef = $("[nome='"+ scope.nome +"'] [name='ngModel_ref']");
 			 
 			if(!scope.ngModel) {
 				scope.ngModel = {
@@ -32,7 +33,28 @@ angular.module("Voyage").directive("medidaAnalogica", [function () {
 			    }
 			  });
 
-			//obj.bootstrapSwitch('state', scope.ngModel.aquisicao_automatica);
+			objRef.autocomplete({
+				source: function (request, response) {
+					$http.get('/bdh/pas_r/?filtro=' + $(this)[0].term).success(function (dados) {
+						teste = [];
+						dados.results.forEach(function (item) {
+							if(item) {										
+								teste.push({
+									label: item.id.trim() + ' (' + item.nome.trim() + ')',
+									value: item.id.trim()
+								});
+							}
+						})
+						response(teste);
+					});
+				},
+				delay: 100,
+				change: function (event, ui) {
+					//scope.ngModel.potencia_ativa.referencia = ui.item;
+				}
+			});
+
+			// obj.bootstrapSwitch('state', scope.ngModel.aquisicao_automatica);
 
 		}
 
@@ -64,6 +86,7 @@ angular.module("Voyage").directive("medidaDigital", ['$http', function ($http) {
 			}
 
 			var adicionarPosicaoRef = function (e) {
+
 				var some_extern = scope.ngModel.referencia.some(function (item) {
 					return item === e.attrs.value;
 				});
@@ -139,8 +162,9 @@ angular.module("Voyage").directive("medidaDigital", ['$http', function ($http) {
 				}
 			}).on('tokenfield:createtoken', adicionarPosicaoRef).on('tokenfield:removetoken', removerPosicaoRef);
 
-			//obj.bootstrapSwitch('state', scope.ngModel.aquisicao_automatica);
-
+			// objAquisicao.bootstrapSwitch('state', scope.ngModel.aquisicao_automatica);
+			// objInversao.bootstrapSwitch('state', scope.ngModel.aquisicao_automatica);
+			// objRef.tokenfield('setTokens', scope.ngModel.referencia);
 		}
 
 }} ]);

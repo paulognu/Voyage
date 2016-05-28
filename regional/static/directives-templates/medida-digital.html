@@ -1,5 +1,4 @@
 <div>
-  {{ ngModel }}
   <h2>{{ titulo }}</h2>
 
   <div class="item form-group" ng-class="{bad: ngModel.aquisicao_automatica_error}">
@@ -15,7 +14,7 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Referência
     </label>
     <div class="col-md-4 col-sm-4 col-xs-12">
-        <input id="name" class="form-control col-md-7 col-xs-12" name="ngModel_ref" placeholder="ID do ponto" type="text" ng-model="ngModel.referencia">
+        <input id="name" class="form-control col-md-7 col-xs-12" name="ngModel_ref" placeholder="ID do ponto" type="text" >
     </div>
     <div class="alert">{{ ngModel.referencia_error }} </div>
   </div>
