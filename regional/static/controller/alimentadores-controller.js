@@ -1,4 +1,4 @@
-angular.module("Voyage").controller("alimentadoresCtrl", function ($scope, $http, $routeParams, $window) {
+angular.module("Voyage").controller("alimentadoresCtrl",[ '$scope', '$http', '$routeParams', '$window', '$divisoesService', function ($scope, $http, $routeParams, $window, $divisoes) {
 	$scope.alimentadores = [];
 	$scope.alimentador = {
 		instalacao: $routeParams.instalacao
@@ -253,4 +253,4 @@ angular.module("Voyage").controller("alimentadoresCtrl", function ($scope, $http
 		$scope.carregarAlimentadoresList();
 	}
 
-});
+} ]);

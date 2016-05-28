@@ -468,6 +468,14 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 					$("[name='grupo_pcmc_inversao']").bootstrapSwitch('state', $scope.equipamento.grupo_pcmc.inversao);
 				}
 
+				$("[nome='potencia_ativa'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.potencia_ativa.aquisicao_automatica);
+				$("[nome='potencia_reativa'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.potencia_reativa.aquisicao_automatica);
+				$("[nome='fator_potencia'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.fator_potencia.aquisicao_automatica);
+
+				$("[nome='corrente_fase_a'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.corrente_fase_a.aquisicao_automatica);
+				$("[nome='corrente_fase_b'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.corrente_fase_b.aquisicao_automatica);
+				$("[nome='corrente_fase_v'] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', $scope.equipamento.corrente_fase_v.aquisicao_automatica);
+
 			})
 			.error(function (dados) {
 

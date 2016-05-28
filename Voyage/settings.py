@@ -92,18 +92,20 @@ DATABASES = {
     'baseconsolidada': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'bccorap_sage',
-        'PORT': 5432,
+        'PORT': 5434,
         'USER': 'postgres',
         'PASSWORD': '1qazxsw2!@',
-        'HOST': '192.168.28.41', # Seridor BDH
+#        'HOST': '192.168.28.41', # Seridor BDH
+        'HOST': 'localhost', # Seridor BDH
     },
     'basehistorica': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'bhcorap_sage',
-        'PORT': 5432,
+        'PORT': 5434,
         'USER': 'postgres',
         'PASSWORD': '1qazxsw2!@',
-        'HOST': '192.168.28.41', # Seridor BDH
+#        'HOST': '192.168.28.41', # Seridor BDH
+        'HOST': 'localhost', # Seridor BDH
     },             
 }
 
