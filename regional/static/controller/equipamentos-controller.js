@@ -65,6 +65,36 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		medida_analogica.valor_manual_error = null;
 	};
 
+	var validate_medida_analogica = function (dados, ngModel) {
+		clean(ngModel);
+
+		if(dados) {
+			if(dados.aquisicao_automatica) {
+				ngModel.aquisicao_automatica_error = dados.aquisicao_automatica[0];
+			} else {
+				ngModel.aquisicao_automatica_error = null;
+			}
+
+			if(dados.fator) {
+				ngModel.fator_error = dados.fator[0];
+			} else {
+				ngModel.fator_error = null;
+			}
+
+			if(dados.referencia) {
+				ngModel.referencia_error = dados.referencia[0];
+			} else {
+				ngModel.referencia_error = null;
+			}
+
+			if(dados.valor_manual) {
+				ngModel.valor_manual_error = dados.valor_manual[0];
+			} else {
+				ngModel.valor_manual_error = null;
+			}
+		}
+	};
+
 	var validate = function (dados) {
 
 		if(dados.codigo_operacional) {
@@ -104,174 +134,23 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		}
 
 		// Potência Ativa
-
-		if(dados.potencia_ativa) {
-			if(dados.potencia_ativa.aquisicao_automatica) {
-				$scope.potencia_ativa.aquisicao_automatica_error = dados.potencia_ativa.aquisicao_automatica[0];
-			} else {
-				$scope.potencia_ativa.aquisicao_automatica_error = null;
-			}
-
-			if(dados.potencia_ativa.fator) {
-				$scope.potencia_ativa.fator_error = dados.potencia_ativa.fator[0];
-			} else {
-				$scope.potencia_ativa.fator_error = null;
-			}
-
-			if(dados.potencia_ativa.referencia) {
-				$scope.potencia_ativa.referencia_error = dados.potencia_ativa.referencia[0];
-			} else {
-				$scope.potencia_ativa.referencia_error = null;
-			}
-
-			if(dados.potencia_ativa.valor_manual) {
-				$scope.potencia_ativa.valor_manual_error = dados.potencia_ativa.valor_manual[0];
-			} else {
-				$scope.potencia_ativa.valor_manual_error = null;
-			}
-		}
+		validate_medida_analogica(dados.potencia_ativa, $scope.equipamento.potencia_ativa);			
 
 		// Potência Reativa
-
-		if(dados.potencia_reativa) {
-			if(dados.potencia_reativa.aquisicao_automatica) {
-				$scope.potencia_reativa.aquisicao_automatica_error = dados.potencia_reativa.aquisicao_automatica[0];
-			} else {
-				$scope.potencia_reativa.aquisicao_automatica_error = null;
-			}
-
-			if(dados.potencia_reativa.fator) {
-				$scope.potencia_reativa.fator_error = dados.potencia_reativa.fator[0];
-			} else {
-				$scope.potencia_reativa.fator_error = null;
-			}
-
-			if(dados.potencia_reativa.referencia) {
-				$scope.potencia_reativa.referencia_error = dados.potencia_reativa.referencia[0];
-			} else {
-				$scope.potencia_reativa.referencia_error = null;
-			}
-
-			if(dados.potencia_reativa.valor_manual) {
-				$scope.potencia_reativa.valor_manual_error = dados.potencia_reativa.valor_manual[0];
-			} else {
-				$scope.potencia_reativa.valor_manual_error = null;
-			}
-		}
+		validate_medida_analogica(dados.potencia_reativa, $scope.equipamento.potencia_reativa);
 
 		// Fator Potência
-
-		if(dados.fator_potencia) {
-			if(dados.fator_potencia.aquisicao_automatica) {
-				$scope.fator_potencia.aquisicao_automatica_error = dados.fator_potencia.aquisicao_automatica[0];
-			} else {
-				$scope.fator_potencia.aquisicao_automatica_error = null;
-			}
-
-			if(dados.fator_potencia.fator) {
-				$scope.fator_potencia.fator_error = dados.fator_potencia.fator[0];
-			} else {
-				$scope.fator_potencia.fator_error = null;
-			}
-
-			if(dados.fator_potencia.referencia) {
-				$scope.fator_potencia.referencia_error = dados.fator_potencia.referencia[0];
-			} else {
-				$scope.fator_potencia.referencia_error = null;
-			}
-
-			if(dados.fator_potencia.valor_manual) {
-				$scope.fator_potencia.valor_manual_error = dados.fator_potencia.valor_manual[0];
-			} else {
-				$scope.fator_potencia.valor_manual_error = null;
-			}
-		}
+		validate_medida_analogica(dados.fator_potencia, $scope.equipamento.fator_potencia);
 
 		// Corrente Fase A
-
-		if(dados.corrente_fase_a) {
-			if(dados.corrente_fase_a.aquisicao_automatica) {
-				$scope.corrente_fase_a.aquisicao_automatica_error = dados.corrente_fase_a.aquisicao_automatica[0];
-			} else {
-				$scope.corrente_fase_a.aquisicao_automatica_error = null;
-			}
-
-			if(dados.corrente_fase_a.fator) {
-				$scope.corrente_fase_a.fator_error = dados.corrente_fase_a.fator[0];
-			} else {
-				$scope.corrente_fase_a.fator_error = null;
-			}
-
-			if(dados.corrente_fase_a.referencia) {
-				$scope.corrente_fase_a.referencia_error = dados.corrente_fase_a.referencia[0];
-			} else {
-				$scope.corrente_fase_a.referencia_error = null;
-			}
-
-			if(dados.corrente_fase_a.valor_manual) {
-				$scope.corrente_fase_a.valor_manual_error = dados.corrente_fase_a.valor_manual[0];
-			} else {
-				$scope.corrente_fase_a.valor_manual_error = null;
-			}
-		}
-
+		validate_medida_analogica(dados.corrente_fase_a, $scope.equipamento.corrente_fase_a);
 
 		// Corrente Fase B
-
-		if(dados.corrente_fase_b) {
-			if(dados.corrente_fase_b.aquisicao_automatica) {
-				$scope.corrente_fase_b.aquisicao_automatica_error = dados.corrente_fase_b.aquisicao_automatica[0];
-			} else {
-				$scope.corrente_fase_b.aquisicao_automatica_error = null;
-			}
-
-			if(dados.corrente_fase_b.fator) {
-				$scope.corrente_fase_b.fator_error = dados.corrente_fase_b.fator[0];
-			} else {
-				$scope.corrente_fase_b.fator_error = null;
-			}
-
-			if(dados.corrente_fase_b.referencia) {
-				$scope.corrente_fase_b.referencia_error = dados.corrente_fase_b.referencia[0];
-			} else {
-				$scope.corrente_fase_b.referencia_error = null;
-			}
-
-			if(dados.corrente_fase_b.valor_manual) {
-				$scope.corrente_fase_b.valor_manual_error = dados.corrente_fase_b.valor_manual[0];
-			} else {
-				$scope.corrente_fase_b.valor_manual_error = null;
-			}
-		}
-
+		validate_medida_analogica(dados.corrente_fase_b, $scope.equipamento.corrente_fase_b);
 
 		// Corrente Fase V
+		validate_medida_analogica(dados.corrente_fase_v, $scope.equipamento.corrente_fase_v);
 
-		if(dados.corrente_fase_v) {
-			if(dados.corrente_fase_v.aquisicao_automatica) {
-				$scope.corrente_fase_v.aquisicao_automatica_error = dados.corrente_fase_v.aquisicao_automatica[0];
-			} else {
-				$scope.corrente_fase_v.aquisicao_automatica_error = null;
-			}
-
-			if(dados.corrente_fase_v.fator) {
-				$scope.corrente_fase_v.fator_error = dados.corrente_fase_v.fator[0];
-			} else {
-				$scope.corrente_fase_v.fator_error = null;
-			}
-
-			if(dados.corrente_fase_v.referencia) {
-				$scope.corrente_fase_v.referencia_error = dados.corrente_fase_v.referencia[0];
-			} else {
-				$scope.corrente_fase_v.referencia_error = null;
-			}
-
-			if(dados.corrente_fase_v.valor_manual) {
-				$scope.corrente_fase_v.valor_manual_error = dados.corrente_fase_v.valor_manual[0];
-			} else {
-				$scope.corrente_fase_v.valor_manual_error = null;
-			}
-		}
 	};
 
 
@@ -377,12 +256,6 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		$scope.tipo_error = null;
 		$scope.em_manutencao_error = null;
 
-
-		clean($scope.potencia_ativa);
-		clean($scope.potencia_reativa);
-		clean($scope.corrente_fase_a);
-		clean($scope.corrente_fase_b);
-		clean($scope.corrente_fase_v);
 
 		if(!equipamento.instalacao) {
 			equipamento.instalacao = null;

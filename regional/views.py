@@ -60,7 +60,6 @@ class ColaboradoresViewSet(viewsets.ModelViewSet):
             queryset = queryset(Q(nome_completo__contains=filtro) | Q(matricula__contains=filtro) | Q(email__contains=filtro) | Q(divisao__in=divisoes))
         
         if divisao:
-            print(divisao)
             queryset = queryset.filter(divisao=divisao)
             
         return queryset.order_by('nome_completo')
@@ -85,9 +84,6 @@ class EquipesViewSet(viewsets.ModelViewSet):
     queryset = Equipes.objects.all().order_by('nome')
     serializer_class = EquipesSerializer 
     pagination_class = LargeResultsSetPagination
-    
-    #user = authenticate(username='10276', password='123456')
-    #print(user)
     
     def get_queryset(self):        
         queryset = Equipes.objects

@@ -18,6 +18,7 @@ angular.module("Voyage").directive("medidaAnalogica", ['$http', function ($http)
 				}
 			}
 
+			var objParent = $("[nome='"+ scope.nome +"']");
 			var obj = $("[nome='"+ scope.nome +"'] [name='ngModel_aquisicao_automatica']");
 			var objRef = $("[nome='"+ scope.nome +"'] [name='ngModel_ref']");
 
@@ -53,6 +54,11 @@ angular.module("Voyage").directive("medidaAnalogica", ['$http', function ($http)
 					//scope.ngModel.potencia_ativa.referencia = ui.item;
 				}
 			});
+
+			objParent.teste = function () {
+				console.log("hacker");
+				console.log($(this).nome);
+			}
 
 			// obj.bootstrapSwitch('state', scope.ngModel.aquisicao_automatica);
 
