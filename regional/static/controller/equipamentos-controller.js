@@ -1,47 +1,5 @@
-angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http, $routeParams, $window) {
+angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$routeParams", "$window", "$equipamentosService", function ($scope, $http, $routeParams, $window, $equipamentos) {
 	$scope.equipamentos = [];
-	 $scope.equipamento = {
-		potencia_ativa: {},
-		potencia_reativa: {},
-		fator_potencia: {},
-		corrente_fase_a: {},
-		corrente_fase_b: {},
-		corrente_fase_v: {},
-		
-		posicao: {
-			referencia: []
-		},
-		
-		erac1oEst: {
-			referencia: []
-		},
-		
-		erac2oEst: {
-			referencia: []
-		},
-		
-		sl1oEst: {
-			referencia: []
-		},
-		
-		sl2oEst: {
-			referencia: []
-		},
-		
-		sl3oEst: {
-			referencia: []
-		},
-		
-		stEst: {
-			referencia: []
-		},
-		
-		grupo_pcmc: {
-			referencia: []
-		},
-		
-		instalacao: $routeParams.instalacao
-	};
 
 	$scope.instalacao = $routeParams.instalacao
 	$scope.instalacoes = [];
@@ -251,32 +209,19 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 	$scope.carregarEquipamentosList = function (filtro) {
 
-		url = "/api/equipamentos/";
-		consulta = url;
+		$equipamentos.getList($routeParams.instalacao, filtro, 
 
-		params = ""
-
-		if(filtro) {
-			params = '?filtro=' + filtro;			
-		}
-
-		if($routeParams.instalacao) {
-			if(params) {
-				params += '&instalacao=' + $routeParams.instalacao;
-			} else {
-				params += '?instalacao=' + $routeParams.instalacao;				
-			}
-		}
-
-		consulta += params;
-
-		$http.get(consulta)
-			.success(function (dados) {
+			/* Success */
+			function (dados) {
 				$scope.equipamentos = dados.results;
-			})
-			.error(function (dados) {
+			},
 
-			});
+			/* Error */
+			function (dados) {
+
+			}
+
+		);
 
 	};
 
@@ -301,19 +246,26 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 				$("[nome=" + nome + "] [name='ngModel_aquisicao_automatica']").bootstrapSwitch('state', ngModel.aquisicao_automatica);
 				$("[nome=" + nome + "] [name='ngModel_inversao']").bootstrapSwitch('state', ngModel.inversao);
 				$("[nome=" + nome + "] [name='ngModel_ref']").tokenfield('setTokens', ngModel.referencia);
+			} else {
+
 			}
 		};
 
 		if(id === "null") {
+			$scope.equipamento = $equipamentos.init(null);
+			$scope.equipamento.instalacao = $routeParams.instalacao;
 			return;
 		}
 
-		url = "/api/equipamentos/";
-		consulta = url + id + "/";
+		$equipamentos.getDetail(id, 
+			/* Success */
+			function (dados) {
 
-		$http.get(consulta)
-			.success(function (dados) {
 				$scope.equipamento = dados;
+
+				if(!$scope.equipamento.instalacao && $routeParams.instalacao) {
+					$scope.equipamento.instalacao = $routeParams.instalacao;
+				}
 
 				setarValorAnalogico("potencia_ativa", $scope.equipamento.potencia_ativa);
 				setarValorAnalogico("potencia_reativa", $scope.equipamento.potencia_reativa);
@@ -335,16 +287,17 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 				setarValorDigital("stEst", $scope.equipamento.stEst);
 
 				setarValorDigital("grupo_pcmc", $scope.equipamento.grupo_pcmc);
+			},
 
-			})
-			.error(function (dados) {
+			/* Error */
+			function (dados) {
+				
+			}
+		);
 
-			});
 	};
 
 	$scope.salvarEquipamentosDetail = function (equipamento) {
-
-		url = "/api/equipamentos/";
 
 		$scope.codigo_operacional_error = null;
 		$scope.descricao_error = null;
@@ -354,44 +307,18 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 		$scope.em_manutencao_error = null;
 
 
-		if(!equipamento.instalacao) {
-			equipamento.instalacao = null;
-		}
+		$equipamentos.save(equipamento, 
 
-		if(!equipamento.tipo) {
-			equipamento.tipo = null;
-		}
+			/* Success */
+			function (dados) {
+				$scope.equipamento = dados;
+			},
 
-		if(!equipamento.observacao) {
-			equipamento.observacao = null;
-		}
-
-		if(!equipamento.descricao) {
-			equipamento.descricao = null;
-		}
-
-
-		if (equipamento && equipamento.id) {
-			consulta = url + equipamento.id + "/";
-
-			$http.put(consulta, equipamento)
-				.success(function (dados) {
-					$scope.equipamento = dados;
-					//redirectList();
-				})
-				.error(function (dados) {
-					validate(dados);
-				});
-		} else {
-			$http.post(url, equipamento)
-				.success(function (dados) {
-					$scope.equipamento = dados;
-					//redirectList();
-				})
-				.error(function (dados) {
-					validate(dados);
-			});
-		}		
+			/* Error */
+			function (dados) {
+				validate(dados);
+			}
+		);
 
 	};
 
@@ -403,21 +330,18 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 
 		$("#btnExcluir").unbind("click");
 		$("#btnExcluir").click(function () {
-			url = "/api/equipamentos/";
 
-			if (equipamento && equipamento.id) {
-				consulta = url + equipamento.id + "/";
+			$equipamentos.delete(equipamento, 
+				/* Success */
+				function (dados) {
+					redirectList();
+				},
 
-				$http.delete(consulta, equipamento)
-					.success(function (dados) {
-						$scope.equipamento = dados;
-
-						redirectList();
-					})
-					.error(function (dados) {
-						
-					});
-			}	
+				/* Error */
+				function (dados) {
+					validate(equipamento);
+				}
+			);
 
 		});
 		$("#dialog").modal();
@@ -457,4 +381,4 @@ angular.module("Voyage").controller("equipamentosCtrl", function ($scope, $http,
 	}
 
      
-});
+} ]);

@@ -85,7 +85,8 @@ angular.module("Voyage").directive("medidaDigital", ['$http', function ($http) {
 					aquisicao_automatica: true,
 					inversao: false,
 					referencia: [],
-					posicao: {}
+					posicao: {},
+					aquisicao_automatica_arror: null
 				}
 			} else {
 				
