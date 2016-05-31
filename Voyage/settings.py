@@ -87,7 +87,12 @@ DATABASE_ROUTERS = ['BaseHistorica.router.consultaBDHRouter']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.dummy',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'voyage2',
+        'PORT': 5433,
+        'USER': 'postgres',
+        'PASSWORD': '1qazxsw2!@',
+        'HOST': 'localhost',
     },
     'baseconsolidada': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

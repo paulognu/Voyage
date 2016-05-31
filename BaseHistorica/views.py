@@ -16,7 +16,7 @@ class pas_rViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:            
-            queryset = queryset.filter(Q(id__contains=filtro) | Q(nome__contains=filtro))
+            queryset = queryset.filter(Q(id__icontains=filtro) | Q(nome__icontains=filtro))
         
         return queryset.order_by('nome')
     
@@ -33,6 +33,6 @@ class pds_rViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:            
-            queryset = queryset.filter(Q(id__contains=filtro))
+            queryset = queryset.filter(Q(id__icontains=filtro) | Q(nome__icontains=filtro) )
         
         return queryset.order_by('nome')    

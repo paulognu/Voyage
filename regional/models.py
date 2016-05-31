@@ -63,6 +63,8 @@ class MedidaAnalogica(EmbeddedDocument):
         
     
 class MedidaDigital(EmbeddedDocument):
+    valor_verdadeiro = StringField(requered=False, null=True)
+    valor_falso = StringField(required=False, null=True)
     aquisicao_automatica = BooleanField(default=True, required=False)
     inversao = BooleanField(default=False)
     referencia = ListField(StringField(default='-'))

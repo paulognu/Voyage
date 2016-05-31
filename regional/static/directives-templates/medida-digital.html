@@ -1,13 +1,31 @@
 <div>
   <h2>{{ titulo }}</h2>
 
+  <div class="item form-group" ng-class="{bad: ngModel.valor_verdadeiro_error}">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Quando Verdadeiro
+    </label>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <input id="name" class="form-control col-md-7 col-xs-12" name="ngModel.valor_verdadeiro" ng-model="ngModel.valor_verdadeiro" placeholder="Informe o texto que deverá ser exibido" type="text" >
+    </div>
+    <div class="alert">{{ ngModel.valor_verdadeiro_error }} </div>
+  </div>
+
+  <div class="item form-group" ng-class="{bad: ngModel.valor_falso_error}">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Quando Falso
+    </label>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <input id="name" class="form-control col-md-7 col-xs-12" name="ngModel.valor_falso" ng-model="ngModel.valor_falso" placeholder="Informe o texto que deverá ser exibido" type="text" >
+    </div>
+    <div class="alert">{{ ngModel.valor_falso_error }} </div>
+  </div>
+
   <div class="item form-group" ng-class="{bad: ngModel.aquisicao_automatica_error}">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Aquisitar 
     </label>
     <div class="col-md-4 col-sm-4 col-xs-12">
         <input type="checkbox" name="ngModel_aquisicao_automatica" ng-model="ngModel.aquisicao_automatica" checked>
     </div>
-    <div class="alert">{{ ngModel.referencia_error }} </div>
+    <div class="alert">{{ ngModel.aquisicao_automatica_error }} </div>
   </div>
 
   <div class="item form-group" ng-class="{bad: ngModel.referencia_error}">

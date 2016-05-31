@@ -8,12 +8,28 @@ from rest_framework_mongoengine import viewsets
 
 from mongoengine.queryset.visitor import Q
 from rest_framework.pagination import PageNumberPagination
+from rest_framework import authentication, permissions
 
 
 class LargeResultsSetPagination(PageNumberPagination):
     page_size = 50
     page_size_query_param = 'page_size'
     max_page_size = 1000
+    
+
+class DefaultsMixin(object):
+    """
+    Incompleto
+    """
+    
+    authentication_classes = (
+        authentication.BasicAuthentication,
+        authentication.TokenAuthentication,
+    )
+    
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+    )
         
 
 class UnidadesViewSet(viewsets.ModelViewSet):
@@ -26,7 +42,7 @@ class UnidadesViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:
-            queryset = queryset(Q(nome__contains=filtro) | Q(sigla__contains=filtro))
+            queryset = queryset(Q(nome__icontains=filtro) | Q(sigla__icontains=filtro))
         
         return queryset.all()
 
@@ -40,7 +56,7 @@ class DivisoesViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:
-            queryset = queryset(Q(nome__contains=filtro) | Q(sigla__contains=filtro))
+            queryset = queryset(Q(nome__icontains=filtro) | Q(sigla__icontains=filtro))
         
         return queryset.all()
 
@@ -56,8 +72,8 @@ class ColaboradoresViewSet(viewsets.ModelViewSet):
         divisao = self.request.query_params.get('divisao', None)
         
         if filtro:
-            divisoes = Divisoes.objects.filter(Q(nome__contains=filtro) | Q(sigla__contains=filtro))
-            queryset = queryset(Q(nome_completo__contains=filtro) | Q(matricula__contains=filtro) | Q(email__contains=filtro) | Q(divisao__in=divisoes))
+            divisoes = Divisoes.objects.filter(Q(nome__icontains=filtro) | Q(sigla__icontains=filtro))
+            queryset = queryset(Q(nome_completo__icontains=filtro) | Q(matricula__icontains=filtro) | Q(email__icontains=filtro) | Q(divisao__in=divisoes))
         
         if divisao:
             queryset = queryset.filter(divisao=divisao)
@@ -75,7 +91,7 @@ class ColaboradoresListViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:
-            queryset = queryset(Q(nome_completo__contains=filtro) | Q(matricula__contains=filtro) | Q(email__contains=filtro))
+            queryset = queryset(Q(nome_completo__icontains=filtro) | Q(matricula__icontains=filtro) | Q(email__icontains=filtro))
         
         return queryset.all()    
 
@@ -90,7 +106,7 @@ class EquipesViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:
-            queryset = queryset(Q(nome__contains=filtro) | Q(sigla__contains=filtro) | Q(descricao__contains=filtro) | Q(observacao__contains=filtro))
+            queryset = queryset(Q(nome__icontains=filtro) | Q(sigla__icontains=filtro) | Q(descricao__icontains=filtro) | Q(observacao__icontains=filtro))
         
         return queryset.all()
     
@@ -105,7 +121,7 @@ class InstalacaoTiposViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:
-            queryset = queryset(Q(nome__contains=filtro))
+            queryset = queryset(Q(nome__icontains=filtro))
         
         return queryset.all()
     
@@ -120,7 +136,8 @@ class InstalacoesViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:
-            queryset = queryset(Q(nome__contains=filtro) | Q(sigla__contains=filtro) | Q(tipo__contains=filtro))
+            unidades = Unidades.objects.filter(Q(nome__icontains=filtro) | Q(sigla__icontains=filtro))        
+            queryset = queryset(Q(nome__icontains=filtro) | Q(sigla__icontains=filtro) | Q(unidade__in=unidades))
         
         return queryset.order_by('nome')
     
@@ -135,7 +152,7 @@ class EquipamentoTiposViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:
-            queryset = queryset(Q(nome__contains=filtro))
+            queryset = queryset(Q(nome__icontains=filtro))
         
         return queryset.all()        
 
@@ -152,8 +169,8 @@ class EquipamentosViewSet(viewsets.ModelViewSet):
         filtro = self.request.query_params.get('filtro', None)
         
         if filtro:
-            tipos = EquipamentoTipos.objects.filter(nome__contains=filtro)
-            queryset = queryset(Q(codigo_operacional__contains=filtro) | Q(tipo__in=tipos) | Q(descricao__contains=filtro) | Q(observacao__contains=filtro))
+            tipos = EquipamentoTipos.objects.filter(nome__icontains=filtro)
+            queryset = queryset(Q(codigo_operacional__icontains=filtro) | Q(tipo__in=tipos) | Q(descricao__icontains=filtro) | Q(observacao__icontains=filtro))
         
         if instalacao:
             queryset =  queryset.filter(instalacao=instalacao)
@@ -179,8 +196,8 @@ class AlimentadoresViewSet(viewsets.ModelViewSet):
             queryset = queryset(instalacao=instalacao)
         
         if filtro:
-            disjuntor = Equipamentos.objects.filter(codigo_operacional__contains=filtro)
-            queryset = queryset(Q(codigo_operacional__contains=filtro) | Q(nome__contains=filtro) | Q(disjuntor__in=disjuntor))
+            disjuntor = Equipamentos.objects.filter(codigo_operacional__icontains=filtro)
+            queryset = queryset(Q(codigo_operacional__icontains=filtro) | Q(nome__icontains=filtro) | Q(disjuntor__in=disjuntor))
             
         return queryset.order_by('codigo_operacional')
     

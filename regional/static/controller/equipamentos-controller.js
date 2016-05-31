@@ -68,6 +68,18 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 		clean(ngModel);
 
 		if(dados) {
+			if(dados.valor_verdadeiro) {
+				ngModel.valor_verdadeiro_error = dados.valor_verdadeiro[0];
+			} else {
+				ngModel.valor_verdadeiro_error = null;
+			}
+
+			if(dados.valor_falso) {
+				ngModel.valor_falso_error = dados.valor_falso[0];
+			} else {
+				ngModel.valor_falso_error = null;
+			}
+
 			if(dados.aquisicao_automatica) {
 				ngModel.aquisicao_automatica_error = dados.aquisicao_automatica[0];
 			} else {
@@ -92,7 +104,12 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 				ngModel.valor_manual_error = null;
 			}
 
-			return ngModel.aquisicao_automatica_error || ngModel.inversao_error || ngModel.referencia_error || ngModel.valor_manual_error;
+			return ngModel.valor_verdadeiro_error	  || 
+				   ngModel.valor_falso_error 		  || 
+				   ngModel.aquisicao_automatica_error || 
+				   ngModel.inversao_error 			  || 
+				   ngModel.referencia_error 		  || 
+				   ngModel.valor_manual_error;
 		}
 
 		return false;
@@ -147,21 +164,16 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 		}		
 
 		// SEP de sobrecarga de Linha
-		if(validate_medida_digital(dados.sl1oEst, $scope.equipamento.sl1oEst)){
-			$scope.setActiveTab(4);
-		}
-		if(validate_medida_digital(dados.sl2oEst, $scope.equipamento.sl2oEst)){
-			$scope.setActiveTab(4);
-		}
-		if(validate_medida_digital(dados.sl3oEst, $scope.equipamento.sl3oEst)){
+		if(validate_medida_digital(dados.sl1oEst, $scope.equipamento.sl1oEst) ||
+		   validate_medida_digital(dados.sl2oEst, $scope.equipamento.sl2oEst) ||
+		   validate_medida_digital(dados.sl3oEst, $scope.equipamento.sl3oEst))
+		{
 			$scope.setActiveTab(4);
 		}
 
 		// ERAC
-		if(validate_medida_digital(dados.erac1oEst, $scope.equipamento.erac1oEst)){
-			$scope.setActiveTab(3);
-		}
-		if(validate_medida_digital(dados.erac2oEst, $scope.equipamento.erac2oEst)){
+		if(validate_medida_digital(dados.erac1oEst, $scope.equipamento.erac1oEst) ||
+		   validate_medida_digital(dados.erac2oEst, $scope.equipamento.erac2oEst)){
 			$scope.setActiveTab(3);
 		}
 		
@@ -170,31 +182,19 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 			$scope.setActiveTab(2);
 		}
 
-		// Corrente Fase A
-		if(validate_medida_analogica(dados.corrente_fase_a, $scope.equipamento.corrente_fase_a)){
-			$scope.setActiveTab(1);
-		}
-		// Corrente Fase B
-		if(validate_medida_analogica(dados.corrente_fase_b, $scope.equipamento.corrente_fase_b)){
-			$scope.setActiveTab(1);
-		}
-		// Corrente Fase V
-		if(validate_medida_analogica(dados.corrente_fase_v, $scope.equipamento.corrente_fase_v)){
+		
+		if(validate_medida_analogica(dados.corrente_fase_a, $scope.equipamento.corrente_fase_a)  ||  // Corrente Fase A
+		   validate_medida_analogica(dados.corrente_fase_b, $scope.equipamento.corrente_fase_b)  ||  // Corrente Fase B
+		   validate_medida_analogica(dados.corrente_fase_v, $scope.equipamento.corrente_fase_v))     // Corrente Fase V
+		{ 
 			$scope.setActiveTab(1);
 		}
 
-		// Potência Ativa
-		if(validate_medida_analogica(dados.potencia_ativa, $scope.equipamento.potencia_ativa)) {
-			$scope.setActiveTab(0);
-		}
-
-		// Potência Reativa
-		if(validate_medida_analogica(dados.potencia_reativa, $scope.equipamento.potencia_reativa)) {
-			$scope.setActiveTab(0);
-		}
-
-		// Fator Potência
-		if(validate_medida_analogica(dados.fator_potencia, $scope.equipamento.fator_potencia)) {
+		
+		if(validate_medida_analogica(dados.potencia_ativa, $scope.equipamento.potencia_ativa)     ||  // Potência Ativa		
+		   validate_medida_analogica(dados.potencia_reativa, $scope.equipamento.potencia_reativa) ||  // Potência Reativa
+		   validate_medida_analogica(dados.fator_potencia, $scope.equipamento.fator_potencia))        // Fator Potência
+		{
 			$scope.setActiveTab(0);
 		}
 
