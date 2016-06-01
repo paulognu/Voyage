@@ -5,6 +5,7 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 	$scope.instalacoes = [];
 
 	$scope.activeTab = 0;
+	$scope.detailTab = 0;
 
 	$scope.filtro = "";
 
@@ -16,22 +17,79 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 	$scope.corrente_fase_b = {};
 	$scope.corrente_fase_v = {};
 
+	$scope.lista_tmp = [{}];
+
+	$scope.item = {};
+
+	$scope.addProtecao = function () {
+		if(!$scope.equipamento.protecao) {
+			$scope.equipamento.protecao = [];
+		}
+
+		$scope.protecao = {};
+		$scope.equipamento.protecao.push($scope.protecao);
+		$scope.setDetailTab(1);
+	};
+
+	$scope.editProtecao = function (index) {
+		$scope.protecao = $scope.equipamento.protecao[index];
+		$scope.setDetailTab(1);
+	}
+
+	$scope.addProtecaoItem = function () {
+		//if($scope.protecao && $scope.protecao.referencias) {
+		//	$scope.protecao.referencias = [];
+		//}
+
+		$scope.item = {};
+		$scope.protecao.referencias.push($scope.item);
+	};
+
+	$scope.removeProtecao = function (protecao_index) {
+		$scope.equipamento.protecao.splice(protecao_index, 1);
+	};
+
+	$scope.removeProtecaoItem = function (potecao_index, item_index) {
+		$scope.equipamento.protecao[potecao_index].referencias.splice(item_index, 1);
+	};
+
+	$scope.getProtecaoItems = function (protecao_item) {
+		if(protecao_item && protecao_item.referencias && protecao_item.referencias.length > 0) {
+			return protecao_item.referencias;
+		}
+
+		return $scope.lista_tmp;
+	}
 
 	$scope.setActiveTab = function (index) {
 		$scope.activeTab = index;
 	};
 
+	$scope.setDetailTab = function (index) {
+		$scope.detailTab = index;
+	};
 
-	var clean = function (medida_analogica) {
+
+	var cleanAnalogico = function (medida_analogica) {
 		medida_analogica.aquisicao_automatica_error = null;
 		medida_analogica.referencia_error = null;
 		medida_analogica.fator_error = null;
 		medida_analogica.valor_manual_error = null;
 	};
 
+	var cleanDigital = function (medida_digital) {
+	   medida_digital.descricao_error = null;
+	   medida_digital.valor_verdadeiro_error = null;
+	   medida_digital.valor_falso_error = null;
+	   medida_digital.aquisicao_automatica_error = null;
+	   medida_digital.inversao_error = null;
+	   medida_digital.referencia_error = null;
+	   medida_digital.valor_manual_error = null;
+	};
+
 
 	var validate_medida_analogica = function (dados, ngModel) {
-		clean(ngModel);
+		cleanAnalogico(ngModel);
 
 		if(dados) {
 			if(dados.aquisicao_automatica) {
@@ -65,9 +123,15 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 	};
 
 	var validate_medida_digital = function (dados, ngModel) {
-		clean(ngModel);
+		cleanDigital(ngModel);
 
 		if(dados) {
+			if(dados.descricao) {
+				ngModel.descricao_error = dados.descricao[0];
+			} else {
+				ngModel.descricao_error = null;
+			}
+
 			if(dados.valor_verdadeiro) {
 				ngModel.valor_verdadeiro_error = dados.valor_verdadeiro[0];
 			} else {
@@ -104,7 +168,8 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 				ngModel.valor_manual_error = null;
 			}
 
-			return ngModel.valor_verdadeiro_error	  || 
+			return ngModel.descricao_error	  		  || 
+				   ngModel.valor_verdadeiro_error	  || 
 				   ngModel.valor_falso_error 		  || 
 				   ngModel.aquisicao_automatica_error || 
 				   ngModel.inversao_error 			  || 
@@ -115,7 +180,7 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 		return false;
 	};
 
-	var validate = function (dados) {
+	var validate = function (dados) {		
 
 		if(dados.codigo_operacional) {
 			$scope.codigo_operacional_error = dados.codigo_operacional[0];
@@ -316,6 +381,7 @@ angular.module("Voyage").controller("equipamentosCtrl", ["$scope", "$http", "$ro
 
 			/* Error */
 			function (dados) {
+				console.log(dados);
 				validate(dados);
 			}
 		);

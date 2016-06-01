@@ -1,181 +1,263 @@
 <div class="row">
-	<div class="col-md-12 col-sm-12 col-xs-12">
-		<div class="x_panel">
-    		<div class="x_title">
-      			<h2>Equipamento <small>Cadastro</small></h2>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Equipamento <small>Cadastro</small></h2>
+            <div class="clearfix"></div>
+        </div>
+          
+      <div class="x_content">
 
-		    	<div class="clearfix"></div>
+            <form class="form-horizontal form-label-left" novalidate>
 
-    		</div>
-    			
-			<div class="x_content">
-  				<form class="form-horizontal form-label-left" novalidate>
-
-              <div class="item form-group" ng-class="{bad: codigo_operacional_error}">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Código Operacional <span class="required">*</span>
-                </label>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o Código Operacional do Equipamento" type="text" ng-model="equipamento.codigo_operacional">
-                </div>
-                <div class="alert">"{{ codigo_operacional_error }}" </div>
-              </div>
-
-              <div class="item form-group" ng-class="{bad: descricao_error}">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Descrição <span class="required">*</span>
-                </label>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Descrição" type="text" ng-model="equipamento.descricao">
-                </div>
-                <div class="alert">"{{ descricao_error }}" </div>
-              </div>
-
-              <div class="item form-group" ng-class="{bad: observacao_error}">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Observação <span class="required">*</span>
-                </label>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Observação" type="text" ng-model="equipamento.observacao">
-                </div>
-                <div class="alert">"{{ observacao_error }}" </div>
-              </div>
-
-              <div class="item form-group" ng-class="{bad: instalacao_error}">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Instalação
-                </label>
-
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <select id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o tipo da Equipamento" type="text" ng-model="equipamento.instalacao">
-                      <option ng-repeat="instalacao in instalacoes" value="{{ instalacao.id }}">{{ instalacao.nome }}</option>
-                    </select>
-                </div>
-                <div class="alert">"{{ instalacao_error }}" </div>
-              </div>
-
-              <div class="item form-group" ng-class="{bad: tipo_error}">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tipo
-                </label>
-
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <select id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o tipo da Equipamento" type="text" ng-model="equipamento.tipo">
-                      <option ng-repeat="tipo in tipos" value="{{ tipo.id }}">{{ tipo.nome }}</option>
-                    </select>
-                </div>
-                <div class="alert">"{{ tipo_error }}" </div>
-              </div>
-
-              <div class="item form-group" ng-class="{bad: em_manutencao_error}">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                </label>
-
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" ng-model="equipamento.em_manutencao"> Em manutenção
-                    </label>
+                <div class="item form-group" ng-class="{bad: codigo_operacional_error}">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Código Operacional <span class="required">*</span>
+                  </label>
+                  <div class="col-md-4 col-sm-4 col-xs-12">
+                      <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o Código Operacional do Equipamento" type="text" ng-model="equipamento.codigo_operacional">
                   </div>
+                  <div class="alert">"{{ codigo_operacional_error }}" </div>
                 </div>
 
-                <div class="alert">{{ em_manutencao_error }} </div>
-              </div>
+                <div class="item form-group" ng-class="{bad: descricao_error}">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Descrição <span class="required">*</span>
+                  </label>
+                  <div class="col-md-4 col-sm-4 col-xs-12">
+                      <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Descrição" type="text" ng-model="equipamento.descricao">
+                  </div>
+                  <div class="alert">"{{ descricao_error }}" </div>
+                </div>
 
-              <div class="nav nav-tabs">
-                <li ng-class="{'active': activeTab == 0}"><a href="" ng-click="setActiveTab(0)">Potência</a></li>
-                <li ng-class="{'active': activeTab == 1}"><a href="" ng-click="setActiveTab(1)">Corrente</a></li>
-                <li ng-class="{'active': activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Estado</a></li>
-                <li ng-class="{'active': activeTab == 3}"><a href="" ng-click="setActiveTab(3)">ERAC</a></li>
-                <li ng-class="{'active': activeTab == 4}"><a href="" ng-click="setActiveTab(4)">SEP de Sobrecarga de Linha</a></li>
-                <li ng-class="{'active': activeTab == 5}"><a href="" ng-click="setActiveTab(5)">SEP de Sobrecarga de Transformador</a></li>
-                <li ng-class="{'active': activeTab == 6}"><a href="" ng-click="setActiveTab(6)">Grupo do PCMC</a></li>
-              </div>
+                <div class="item form-group" ng-class="{bad: observacao_error}">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Observação <span class="required">*</span>
+                  </label>
+                  <div class="col-md-4 col-sm-4 col-xs-12">
+                      <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Observação" type="text" ng-model="equipamento.observacao">
+                  </div>
+                  <div class="alert">"{{ observacao_error }}" </div>
+                </div>
 
-              <div class="tab-content">
+                <div class="item form-group" ng-class="{bad: instalacao_error}">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Instalação
+                  </label>
 
-                <div class="tab-pane" ng-class="{'active': activeTab == 0}">
+                  <div class="col-md-4 col-sm-4 col-xs-12">
+                      <select id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o tipo da Equipamento" type="text" ng-model="equipamento.instalacao">
+                        <option ng-repeat="instalacao in instalacoes" value="{{ instalacao.id }}">{{ instalacao.nome }}</option>
+                      </select>
+                  </div>
+                  <div class="alert">"{{ instalacao_error }}" </div>
+                </div>
 
-                  <!-- Potência Ativa-->
-                  <medida-analogica nome="potencia_ativa" titulo="Potência Ativa" ng-model="equipamento.potencia_ativa"></medida-analogica>
+                <div class="item form-group" ng-class="{bad: tipo_error}">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tipo
+                  </label>
 
-                  <!-- Potência Reativa -->
-                  <medida-analogica nome="potencia_reativa" titulo="Potência Reativa" ng-model="equipamento.potencia_reativa"></medida-analogica>
+                  <div class="col-md-4 col-sm-4 col-xs-12">
+                      <select id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o tipo da Equipamento" type="text" ng-model="equipamento.tipo">
+                        <option ng-repeat="tipo in tipos" value="{{ tipo.id }}">{{ tipo.nome }}</option>
+                      </select>
+                  </div>
+                  <div class="alert">"{{ tipo_error }}" </div>
+                </div>
 
-                  <!-- Fator de Potência -->
-                  <medida-analogica nome="fator_potencia" titulo="Fator de Potência" ng-model="equipamento.fator_potencia"></medida-analogica>
+                <div class="item form-group" ng-class="{bad: em_manutencao_error}">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                  </label>
+
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="equipamento.em_manutencao"> Em manutenção
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="alert">{{ em_manutencao_error }} </div>
+                </div>
+
+
+                <div class="nav nav-tabs" ng-if="detailTab == 0">
+                  <li ng-class="{'active': activeTab == 0}"><a href="" ng-click="setActiveTab(0)">Potência</a></li>
+                  <li ng-class="{'active': activeTab == 1}"><a href="" ng-click="setActiveTab(1)">Corrente</a></li>
+                  <li ng-class="{'active': activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Estado</a></li>
+                  <li ng-class="{'active': activeTab == 3}"><a href="" ng-click="setActiveTab(3)">ERAC</a></li>
+                  <li ng-class="{'active': activeTab == 4}"><a href="" ng-click="setActiveTab(4)">SEP de Sobrecarga de Linha</a></li>
+                  <li ng-class="{'active': activeTab == 5}"><a href="" ng-click="setActiveTab(5)">SEP de Sobrecarga de Transformador</a></li>
+                  <li ng-class="{'active': activeTab == 6}"><a href="" ng-click="setActiveTab(6)">Grupo do PCMC</a></li>
+                  <li ng-class="{'active': activeTab == 7}"><a href="" ng-click="setActiveTab(7)">Proteção</a></li>
+                </div>
+
+                <div class="tab-content" ng-if="detailTab == 0">
+
+                  <div class="tab-pane" ng-class="{'active': activeTab == 0}">
+
+                    <!-- Potência Ativa-->
+                    <medida-analogica nome="potencia_ativa" titulo="Potência Ativa" ng-model="equipamento.potencia_ativa"></medida-analogica>
+
+                    <!-- Potência Reativa -->
+                    <medida-analogica nome="potencia_reativa" titulo="Potência Reativa" ng-model="equipamento.potencia_reativa"></medida-analogica>
+
+                    <!-- Fator de Potência -->
+                    <medida-analogica nome="fator_potencia" titulo="Fator de Potência" ng-model="equipamento.fator_potencia"></medida-analogica>
+
+                  </div>
+
+                  <div class="tab-pane" ng-class="{'active': activeTab == 1}">
+
+                    <!-- Corrente ØA -->
+                    <medida-analogica nome="corrente_fase_a" titulo="Corrente ØA" ng-model="equipamento.corrente_fase_a"></medida-analogica>
+
+                    <!-- Corrente ØB -->
+                    <medida-analogica nome="corrente_fase_b" titulo="Corrente ØB" ng-model="equipamento.corrente_fase_b"></medida-analogica>
+
+                    <!-- Corrente ØV -->
+                    <medida-analogica nome="corrente_fase_v" titulo="Corrente ØV" ng-model="equipamento.corrente_fase_v"></medida-analogica>
+
+                  </div>
+
+                  <div class="tab-pane" ng-class="{'active': activeTab == 2}">
+                    <!-- Potência Ativa-->
+
+                    <medida-digital nome="posicao" titulo="Posição" ng-model="equipamento.posicao"></medida-digital>
+
+                  </div>
+
+                  <div class="tab-pane" ng-class="{'active': activeTab == 3}">
+                    <!-- 1o Estágio -->
+
+                    <medida-digital nome="erac1oEst" titulo="1o Estágio" ng-model="equipamento.erac1oEst"></medida-digital>
+
+                    <!-- 2o Estágio -->
+                    <medida-digital nome="erac2oEst" titulo="2o Estágio" ng-model="equipamento.erac2oEst"></medida-digital>
+
+                  </div>
+
+
+                  <div class="tab-pane" ng-class="{'active': activeTab == 4}">
+                    <!-- 1o Estágio -->
+
+                    <medida-digital nome="sl1oEst" titulo="1o Estágio" ng-model="equipamento.sl1oEst"></medida-digital>
+
+                    <!-- 2o Estágio -->
+                    <medida-digital nome="sl2oEst" titulo="2o Estágio" ng-model="equipamento.sl2oEst"></medida-digital>
+
+                    <!-- 3o Estágio -->
+                    <medida-digital nome="sl3oEst" titulo="3o Estágio" ng-model="equipamento.sl3oEst"></medida-digital>
+
+                  </div>
+
+                  <div class="tab-pane" ng-class="{'active': activeTab == 5}">
+                    <!-- SEP de Sobrecarga de Transformador -->
+
+                    <medida-digital nome="stEst" titulo="SEP de Sobrecarga de Transformador" ng-model="equipamento.stEst"></medida-digital>
+
+                  </div>
+
+                  <div class="tab-pane" ng-class="{'active': activeTab == 6}">
+                  
+                    <!-- Grupo do PCMC -->
+                    <medida-digital nome="grupo_pcmc" titulo="Grupo do PCMC" ng-model="equipamento.grupo_pcmc"></medida-digital>
+
+                  </div>
+
+                  <div class="tab-pane" ng-class="{'active': activeTab == 7}">
+
+                    <a href="" ng-click="addProtecao()" class="btn btn-primary btn-xs">Adicionar </a>
+
+                    <table class="table">
+                      <thead>
+                        <th></th>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Descricção</th>
+                        <th>Aquisição</th>
+                        <th>Inversão</th>
+                        <th>Valor Verdadeiro</th>
+                        <th>Valor Falso</th>
+                        <th>Valor Manual</th>
+                        <th>Descrição</th>
+                        <th><!-- Botão Remover --></th>
+                      </thead>
+
+                      <tbody ng-repeat="(index, protecao_item) in equipamento.protecao">
+                        <tr ng-repeat="item in getProtecaoItems(protecao_item)">
+                          <td ng-if="$first" rowspan="{{ protecao_item.referencias.length }}"><a href="" ng-click="removeProtecao(index)" class="btn btn-primary btn-xs">Remover</a></td>
+                          <td ng-if="$first" rowspan="{{ protecao_item.referencias.length }}"><a href="" ng-click="editProtecao(index)" class="btn btn-primary btn-xs">Edit</a></td>
+                          <td ng-if="$first" rowspan="{{ protecao_item.referencias.length }}">{{ protecao_item.codigo }}</td>
+                          <td ng-if="$first" rowspan="{{ protecao_item.referencias.length }}">{{ protecao_item.descricao }}</td>
+                          <td>{{ item.aquisicao_automatica }}</td>
+                          <td>{{ item.inversao }}</td>
+                          <td>{{ item.valor_verdadeiro }}</td>
+                          <td>{{ item.valor_falso }}</td>
+                          <td>{{ item.valor_manual }}</td>
+                          <td>{{ item.descricao }}</td>
+                          <td><a href="" ng-click="removeProtecaoItem(index, $index)" class="btn btn-primary btn-xs">Remover</a></td>
+                        </tr>
+                      </tbody>
+                      
+                    </table>
+
+                  </div>
 
                 </div>
 
-                <div class="tab-pane" ng-class="{'active': activeTab == 1}">
+                <div ng-if="detailTab == 1">
 
-                  <!-- Corrente ØA -->
-                  <medida-analogica nome="corrente_fase_a" titulo="Corrente ØA" ng-model="equipamento.corrente_fase_a"></medida-analogica>
+                  <form novalidate>
 
-                  <!-- Corrente ØB -->
-                  <medida-analogica nome="corrente_fase_b" titulo="Corrente ØB" ng-model="equipamento.corrente_fase_b"></medida-analogica>
+                    <div class="x_title">
+                        <h2>Proteção <small>Cadastro</small></h2>
+                        <div class="clearfix"></div>                        
+                    </div>
+                    <a ng-click="setDetailTab(0)" class="btn btn-primary btn-xs">Voltar a tela de Grandezas</a>
 
-                  <!-- Corrente ØV -->
-                  <medida-analogica nome="corrente_fase_v" titulo="Corrente ØV" ng-model="equipamento.corrente_fase_v"></medida-analogica>
+                    <div class="item form-group" ng-class="{bad: codigo_operacional_error}">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Código <span class="required">*</span>
+                      </label>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe o Código Operacional do Equipamento" type="text" ng-model="protecao.codigo">
+                      </div>
+                      <div class="alert">"{{ codigo_operacional_error }}" </div>
+                    </div>
 
-                </div>
+                    <div class="item form-group" ng-class="{bad: descricao_error}">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Descrição <span class="required">*</span>
+                      </label>
+                      <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="Informe uma descrição" type="text" ng-model="protecao.descricao">
+                      </div>
+                      <div class="alert">"{{ descricao_error }}" </div>
+                    </div>
 
-                <div class="tab-pane" ng-class="{'active': activeTab == 2}">
-                  <!-- Potência Ativa-->
+                    <div ng-repeat="item in protecao.referencias">
+                      <a href="" ng-click="addProtecaoItem()" class="btn btn-primary btn-xs">Adionar Proteçao</a>
+                      <medida-digital nome="aaaa" titulo="{{ item.codigo }}" ng-model="item"></medida-digital>
+                    </div>
 
-                  <medida-digital nome="posicao" titulo="Posição" ng-model="equipamento.posicao"></medida-digital>
-
-                </div>
-
-                <div class="tab-pane" ng-class="{'active': activeTab == 3}">
-                  <!-- 1o Estágio -->
-
-                  <medida-digital nome="erac1oEst" titulo="1o Estágio" ng-model="equipamento.erac1oEst"></medida-digital>
-
-                  <!-- 2o Estágio -->
-
-                  <medida-digital nome="erac2oEst" titulo="2o Estágio" ng-model="equipamento.erac2oEst"></medida-digital>
-
-                </div>
-
-
-                <div class="tab-pane" ng-class="{'active': activeTab == 4}">
-                  <!-- 1o Estágio -->
-
-                  <medida-digital nome="sl1oEst" titulo="1o Estágio" ng-model="equipamento.sl1oEst"></medida-digital>
-
-                  <!-- 2o Estágio -->
-                  <medida-digital nome="sl2oEst" titulo="2o Estágio" ng-model="equipamento.sl2oEst"></medida-digital>
-
-                  <!-- 3o Estágio -->
-                  <medida-digital nome="sl3oEst" titulo="3o Estágio" ng-model="equipamento.sl3oEst"></medida-digital>
+                  </form>
 
                 </div>
 
-                <div class="tab-pane" ng-class="{'active': activeTab == 5}">
-                  <!-- SEP de Sobrecarga de Transformador -->
 
-                  <medida-digital nome="stEst" titulo="SEP de Sobrecarga de Transformador" ng-model="equipamento.stEst"></medida-digital>
+                <div class="ln_solid"></div>
+
+                <div class="form-group">
+
+                  <div class="col-md-6 col-md-offset-3">
+                    <a onclick="window.history.back();" class="btn btn-primary">Voltar</a>
+                    <a ng-click="excluirEquipamentosDetail(equipamento);" class="btn btn-warning" ng-if="equipamento && equipamento.id">Excluir</a>
+                    <a id="send" ng-click="salvarEquipamentosDetail(equipamento);" class="btn btn-success">Salvar</a>
+                  </div>
 
                 </div>
 
-                <div class="tab-pane" ng-class="{'active': activeTab == 6}">
-                
-                  <!-- Grupo do PCMC -->
-                  <medida-digital nome="grupo_pcmc" titulo="Grupo do PCMC" ng-model="equipamento.grupo_pcmc"></medida-digital>
+            </form>
 
-              </div>
+          </div>
 
-
-              <div class="ln_solid"></div>
-
-              <div class="form-group">
-                <div class="col-md-6 col-md-offset-3">
-                  <a onclick="window.history.back();" class="btn btn-primary">Voltar</a>
-                  <a ng-click="excluirEquipamentosDetail(equipamento);" class="btn btn-warning" ng-if="equipamento && equipamento.id">Excluir</a>
-                  <a id="send" ng-click="salvarEquipamentosDetail(equipamento);" class="btn btn-success">Salvar</a>
-                </div>
-              </div>
-
-			    </form>
-
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 
 </div>

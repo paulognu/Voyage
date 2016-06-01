@@ -63,12 +63,20 @@ class MedidaAnalogica(EmbeddedDocument):
         
     
 class MedidaDigital(EmbeddedDocument):
-    valor_verdadeiro = StringField(requered=False, null=True)
+    codigo = StringField(required=False, null=True)
+    descricao = StringField(required=True, null=False)
+    valor_verdadeiro = StringField(required=False, null=True)
     valor_falso = StringField(required=False, null=True)
     aquisicao_automatica = BooleanField(default=True, required=False)
     inversao = BooleanField(default=False)
     referencia = ListField(StringField(default='-'))
-    valor_manual = StringField(default='-')    
+    valor_manual = StringField(default='-')
+    
+        
+class ItemProtecao(EmbeddedDocument):
+    codigo = StringField(required=True, null=False)
+    descricao  = StringField(required=True, null=False)
+    referencias = ListField(EmbeddedDocumentField(MedidaDigital))    
         
     
 class Equipamentos(Document):
@@ -100,6 +108,8 @@ class Equipamentos(Document):
     stEst = EmbeddedDocumentField(MedidaDigital, required=False)
     
     grupo_pcmc = EmbeddedDocumentField(MedidaDigital, required=False)
+    
+    protecao = ListField(EmbeddedDocumentField(ItemProtecao))
     
     
 class Alimentadores(Document):

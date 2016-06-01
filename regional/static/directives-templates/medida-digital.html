@@ -1,8 +1,27 @@
 <div>
-  <h2>{{ titulo }}</h2>
+  <h2>Código: {{ titulo }}</h2>
+  <div class="ln_solid"></div>
+
+  <div class="item form-group" ng-class="{bad: ngModel.codigo_error}">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Código
+    </label>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <input id="name" class="form-control col-md-7 col-xs-12" name="ngModel.codigo" ng-model="ngModel.codigo" placeholder="Informe o texto que deverá ser exibido" type="text" >
+    </div>
+    <div class="alert">{{ ngModel.codigo_error }} </div>
+  </div>
+
+  <div class="item form-group" ng-class="{bad: ngModel.descricao_error}">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Descrição
+    </label>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <input id="name" class="form-control col-md-7 col-xs-12" name="ngModel.descricao" ng-model="ngModel.descricao" placeholder="Informe o texto que deverá ser exibido" type="text" >
+    </div>
+    <div class="alert">{{ ngModel.descricao_error }} </div>
+  </div>
 
   <div class="item form-group" ng-class="{bad: ngModel.valor_verdadeiro_error}">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Quando Verdadeiro
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor Verdadeiro
     </label>
     <div class="col-md-4 col-sm-4 col-xs-12">
         <input id="name" class="form-control col-md-7 col-xs-12" name="ngModel.valor_verdadeiro" ng-model="ngModel.valor_verdadeiro" placeholder="Informe o texto que deverá ser exibido" type="text" >
@@ -11,7 +30,7 @@
   </div>
 
   <div class="item form-group" ng-class="{bad: ngModel.valor_falso_error}">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Quando Falso
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Valor Falso
     </label>
     <div class="col-md-4 col-sm-4 col-xs-12">
         <input id="name" class="form-control col-md-7 col-xs-12" name="ngModel.valor_falso" ng-model="ngModel.valor_falso" placeholder="Informe o texto que deverá ser exibido" type="text" >

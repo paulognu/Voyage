@@ -141,7 +141,7 @@ angular.module("Voyage").factory('$equipamentosService', ['$http', function ($ht
 		consulta = url + id + "/";
 
 		if(id) {
-			console.log('Hacker');
+
 		}
 
 		$http.get(consulta)
