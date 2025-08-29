@@ -4,6 +4,12 @@
 
 O projeto **Voyage** tem como objetivo automatizar a geração e envio de relatórios dos setores **SEP** e **ERAC**, facilitando o trabalho e aumentando a eficiência da equipe elétrica.
 
+- **SEP (Sistema Especial de Proteção ou Sistema Específico de Proteção)**:  
+  É utilizado para proteger equipamentos contra condições anormais, como sobrecarga, sobretensão, subtensão e, principalmente, subfrequência ou sobrefrequência na rede elétrica. Atua automaticamente para evitar danos aos equipamentos e garantir a estabilidade do sistema elétrico.
+
+- **ERAC (Esquema Regional de Alívio de Carga)**:  
+  Atua de forma semelhante ao SEP, mas com foco em reduzir a carga em determinadas áreas quando há anomalias na frequência, prevenindo apagões e mantendo o equilíbrio do sistema elétrico.
+
 ## 🌟 Diferencial
 
 O principal diferencial do Voyage é a **integração com a Base Histórica do SAGE**  
@@ -22,7 +28,7 @@ O principal diferencial do Voyage é a **integração com a Base Histórica do S
 
 ## 💻 Tecnologias Utilizadas
 
-- **Frontend:** JavaScript  
+- **Frontend:** JavaScript/Angular
 - **Backend:** Python com Django  
 - **Banco de dados:** PostgreSQL  
 - Integração com sistemas: SAGE (CEPEL)  
